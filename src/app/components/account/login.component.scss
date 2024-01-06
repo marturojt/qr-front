@@ -1,0 +1,113 @@
+.logo-Mas {
+    height: 140px;
+    padding: 0.5rem;
+}
+
+.fondo-izquierda {
+    height: 100vh;
+    // width: 100%; 
+    // border: 1px solid black; 
+    // position: relative;
+    // background: linear-gradient(#86858a, #fff);
+    // background: linear-gradient(#fff, #86858a);
+    // background-image: url('../../../assets/images/stockMarket-min.jpg');
+    // background-color: #86858a;
+    // background-repeat: no-repeat;
+    // background-position: center center;
+    // background-size: cover;
+    background: linear-gradient(-45deg, #F2EFBB, #BF9D5E, #252526, #402401);
+    // background: linear-gradient(-45deg, #F2EFBB, #BF9D5E, #252526, #BF9D5E, #F2EFBB);
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+input.ng-dirty.ng-invalid {
+    color: red
+}
+
+// select.ng-dirty.ng-invalid {
+//     color: red
+// }
+
+input.ng-valid[required],
+.ng-valid.required {
+    border-bottom: 1px solid #1b5e20;
+    /* green */
+    box-shadow: 0 1px 0 0 #1b5e20;
+    /* black */
+
+}
+
+input.valid[type=text] {
+    border-bottom: 1px solid #1b5e20;
+    /* green */
+    box-shadow: 0 1px 0 0 #1b5e20;
+    /* black */
+
+}
+
+// select.ng-valid[required],
+// .ng-valid.required {
+//     border-bottom: 1px solid #1b5e20;
+//     /* green */
+//     box-shadow: 0 1px 0 0 #1b5e20;
+//     /* black */
+
+// }
+
+input.ng-invalid:not(form) {
+    border-bottom: 1px solid #a94442;
+    /* red */
+    box-shadow: 0 1px 0 0 #a94442;
+    /* black */
+}
+
+// select.ng-invalid:not(form) {
+//     border-bottom: 1px solid #a94442;
+//     /* red */
+//     box-shadow: 0 1px 0 0 #a94442;
+//     /* black */
+// }
+
+sup {
+    color: red;
+}
+
+.helper-errors {
+    color: red;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #BF9D5E;
+}
+
+/* icon prefix focus color */
+.input-field .prefix {
+    color: #BF9D5E;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #BF9D5E;
+    box-shadow: 0 1px 0 0 #BF9D5E;
+}
+
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #BF9D5E;
+    box-shadow: 0 1px 0 0 #BF9D5E;
+}

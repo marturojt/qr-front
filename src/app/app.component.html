@@ -1,0 +1,35 @@
+﻿<div #navBar class="navbar-fixed">
+    <nav class="masada-dark-background">
+        <div class="nav-wrapper">
+            <span>&nbsp;</span>
+            <!-- Logo que regresa a Home -->
+            <a routerLink="/" class="brand-logo hide-on-large-only">
+                <img src="assets/images/logos/freemason-logo.svg" alt="logo-navbar" class="logoNavbarSmall">
+            </a>
+            <a routerLink="/" class="brand-logo hide-on-med-and-down">
+                <img src="assets/images/logos/freemason-logo.svg" alt="logo-navbar" class="logoNavbar">
+            </a>
+
+            <!-- Menú -->
+            <ul class="right hide-on-med-and-down">
+                <li><a routerLink="/ingreso"><i class="material-icons text-masada-gold tooltipped" data-tooltip="Ingreso a la órden">group</i></a></li>
+                <li><a routerLink="/biblioteca"><i class="material-icons text-masada-gold tooltipped" data-tooltip="Biblioteca">chrome_reader_mode</i></a></li>
+                <li><a routerLink="/cuadroLogial"><i class="material-icons text-masada-gold tooltipped" data-tooltip="Cuadro Logial">work_outline</i></a></li>
+                <li *ngIf="account"><a (click)="logout()"><i class="material-icons text-masada-gold">directions_run</i></a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+<!-- main router outlet -->
+<router-outlet></router-outlet>
+
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="account">
+    <div class="navbar-nav">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
+        <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
+        <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
+        <a (click)="logout()" class="nav-item nav-link">Logout</a>
+    </div>
+</nav> -->
