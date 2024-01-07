@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormularioIngresoComponent } from './formulario-ingreso.component';
+import { ForgotPwdComponent } from './forgot-pwd.component';
 
-describe('FormularioIngresoComponent', () => {
-  let component: FormularioIngresoComponent;
-  let fixture: ComponentFixture<FormularioIngresoComponent>;
+describe('ForgotPwdComponent', () => {
+  let component: ForgotPwdComponent;
+  let fixture: ComponentFixture<ForgotPwdComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormularioIngresoComponent ]
+      declarations: [ ForgotPwdComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormularioIngresoComponent);
+    fixture = TestBed.createComponent(ForgotPwdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

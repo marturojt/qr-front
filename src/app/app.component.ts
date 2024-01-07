@@ -47,11 +47,17 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        $(document).ready(function () {
-            $('.tooltipped').tooltip({
-                position: 'bottom',
-                margin: 2
-            });
+        // $(document).ready(function () {
+        //     $('.tooltipped').tooltip({
+        //         position: 'bottom',
+        //         margin: 2
+        //     });
+        // });
+        document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.tooltipped');
+          var instances = M.Tooltip.init(elems, {
+            // specify options here
+          });
         });
     }
 

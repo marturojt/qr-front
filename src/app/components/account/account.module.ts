@@ -3,12 +3,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
-import { LayoutComponent } from './layout.component';
-import { LoginComponent } from './login.component';
-import { RegisterComponent } from './register.component';
-import { VerifyEmailComponent } from './verify-email.component';
-import { ForgotPasswordComponent } from './forgot-password.component';
-import { ResetPasswordComponent } from './reset-password.component';
+import { LoginComponent } from './login/login.component';
+import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
+import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
+import { AccountLayoutComponent } from './account-layout/account-layout.component';
 
 @NgModule({
     imports: [
@@ -17,12 +17,12 @@ import { ResetPasswordComponent } from './reset-password.component';
         AccountRoutingModule
     ],
     declarations: [
-        LayoutComponent,
         LoginComponent,
-        RegisterComponent,
-        VerifyEmailComponent,
-        ForgotPasswordComponent,
-        ResetPasswordComponent
+        ForgotPwdComponent,
+        ResetPwdComponent,
+        RegisterUserComponent,
+        VerifyAccountComponent,
+        AccountLayoutComponent
     ]
 })
 export class AccountModule { }

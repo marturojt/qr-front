@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LayoutComponent } from './layout.component';
-import { LoginComponent } from './login.component';
-import { RegisterComponent } from './register.component';
-import { VerifyEmailComponent } from './verify-email.component';
-import { ForgotPasswordComponent } from './forgot-password.component';
-import { ResetPasswordComponent } from './reset-password.component';
+import { LoginComponent } from './login/login.component';
+import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
+import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
+import { AccountLayoutComponent } from './account-layout/account-layout.component';
 
 const routes: Routes = [
     {
-        path: '', component: LayoutComponent,
+        path: '', component: AccountLayoutComponent,
         children: [
             { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
-            { path: 'verify-email', component: VerifyEmailComponent },
-            { path: 'forgot-password', component: ForgotPasswordComponent },
-            { path: 'reset-password', component: ResetPasswordComponent }
+            { path: 'register', component: RegisterUserComponent },
+            { path: 'verify-email', component: VerifyAccountComponent },
+            { path: 'forgot-password', component: ForgotPwdComponent },
+            { path: 'reset-password', component: ResetPwdComponent }
         ]
     }
 ];

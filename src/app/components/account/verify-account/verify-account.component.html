@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row section">
+    <div class="col s12 center-align">
+      <h3 class="header">Verificación de cuenta</h3>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div *ngIf="emailStatus == EmailStatus.Verifying" class="container section">
+  Verifying...
+</div>
+
+<div *ngIf="emailStatus == EmailStatus.Failed" class="container section">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <div class="card-panel">
+        <span>
+          Verification failed, you can also verify your account using the <a routerLink="forgot-password">forgot
+            password</a> page.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

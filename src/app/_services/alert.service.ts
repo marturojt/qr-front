@@ -11,15 +11,15 @@ export class AlertService {
     //#region ALERTAS CON TOAST
 
     toastError(message: string) {
-        M.toast({ html: message, classes: 'rounded red darken-4' })
+        M.toast({ text: message, classes: 'rounded red darken-4' })
     }
 
     toastWarn(message: string) {
-        M.toast({ html: message, classes: 'rounded amber accent-4 grey-text text-darken-4' })
+        M.toast({ text: message, classes: 'rounded amber accent-4 grey-text text-darken-4' })
     }
 
     toastWin(message: string) {
-        M.toast({ html: message, classes: 'rounded verde-mca accent-4' })
+        M.toast({ text: message, classes: 'rounded green darken-4 white-text' })
     }
 
     //#endregion

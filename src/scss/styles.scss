@@ -9,37 +9,35 @@
 
 // ===== Clases especiales de color =======
 
-// Texto principal
-.text-masada-gold {
-    color: $masada-gold !important;
+// ===== Special colors QR site theme classes ======
+.qrsite-light-background {
+    background-color: $qrsite-background !important;
 }
 
-// Texto claro
-.text-masada-gold-light {
-    color: $masada-gold-light !important;
+.qrsite-white-background {
+  background-color: $qrsite-accent-white !important;
 }
 
-// Fondo principal
-.masada-dark-background {
-    background-color: $masada-dark-background !important;
+.qrsite-contrast-background {
+    background-color: $qrsite-background-contrast !important;
 }
 
-// Contraste de fondo oscuro
-.masada-dark-background-contrast {
-    background-color: $masada-dark-background-contrast !important;
+.text-qrsite {
+    color: $qrsite-text !important;
 }
 
-// Contraste de fondo claro
-.masada-grey-highlight {
-    background-color: $masada-grey-highlight !important;
+.text-qrsite-accent {
+    color: $qrsite-accent-color !important;
 }
 
 
-// ===== Global HTML styles =====
+
+
+// === Global HTML styles ===
 
 body {
-    @extend .masada-dark-background;
-    @extend .text-masada-gold;
+    @extend .qrsite-light-background;
+    @extend .text-qrsite;
 
     // Distribución del home
     display: flex;
@@ -52,7 +50,7 @@ main {
 }
 
 blockquote {
-    border-left: 5px solid $masada-gold-light;
+    border-left: 5px solid $qrsite-accent-color;
     text-align: justify;
 }
 
@@ -60,14 +58,62 @@ blockquote {
     padding-top: 1px;
 }
 
+
+// === Form Styles ===
+
+/* Dirty and invalid input */
+input.ng-dirty.ng-invalid {
+  color: red
+}
+
+/* Invalid input */
+input.ng-invalid:not(form) {
+  border-bottom: 1px solid #a94442;
+  /* red */
+  box-shadow: 0 1px 0 0 #a94442;
+  /* black */
+}
+
+/* Helper errors */
+.helper-errors {
+  color: red;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid $qrsite-accent-color;
+  box-shadow: 0 1px 0 0 $qrsite-accent-color;
+}
+.input-field input[type=email]:focus {
+  border-bottom: 1px solid $qrsite-accent-color;
+  box-shadow: 0 1px 0 0 $qrsite-accent-color;
+}
+.input-field input[type=password]:focus {
+  border-bottom: 1px solid $qrsite-accent-color;
+  box-shadow: 0 1px 0 0 $qrsite-accent-color;
+}
+
+/* label color */
+.input-field label {
+  color: $qrsite-background-contrast;
+}
+
+// === Other things ===
+
+sup {
+  color: red;
+}
+
+// === DataTables ===
+
 .dataTables_info {
-    @extend .text-masada-gold;
+    @extend .text-qrsite ;
 }
 
 .dataTables_filter,
 label,
 input {
-    @extend .text-masada-gold;
+    @extend .text-qrsite;
 }
 
 a.paginate_button,
@@ -76,7 +122,7 @@ a.paginate_button.next,
 a.paginate_button.next.disabled,
 a.paginate_button.previous,
 a.paginate_button.previous.disabled {
-    background-color: lighten($masada-dark-background, 20%) !important;
+    background-color: lighten($qrsite-background, 20%) !important;
 }
 
 // a.paginate_button:hover,

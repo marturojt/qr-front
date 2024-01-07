@@ -1,0 +1,31 @@
+.logo-login {
+  height: 140px;
+  padding: 0.5rem;
+}
+
+.fondo-izquierda {
+  height: 100vh;
+  background: linear-gradient(-45deg, #fff, #86858a);
+  // background: linear-gradient(-45deg, #F2EFBB, #BF9D5E, #252526, #402401);
+  // background: linear-gradient(-45deg, #F2EFBB, #BF9D5E, #252526, #BF9D5E, #F2EFBB);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+
+  50% {
+      background-position: 100% 50%;
+  }
+
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+
+
+

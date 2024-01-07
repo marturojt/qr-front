@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BibliotecaComponent } from './biblioteca.component';
+import { AccountLayoutComponent } from './account-layout.component';
 
-describe('BibliotecaComponent', () => {
-  let component: BibliotecaComponent;
-  let fixture: ComponentFixture<BibliotecaComponent>;
+describe('AccountLayoutComponent', () => {
+  let component: AccountLayoutComponent;
+  let fixture: ComponentFixture<AccountLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BibliotecaComponent ]
+      declarations: [ AccountLayoutComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BibliotecaComponent);
+    fixture = TestBed.createComponent(AccountLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

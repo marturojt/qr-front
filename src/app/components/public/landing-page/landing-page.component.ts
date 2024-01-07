@@ -23,8 +23,11 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
 
     // Init de Materialize components
-    $(document).ready(function () {
-      $('.parallax').parallax();
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.parallax');
+      var instances = M.Parallax.init(elems, {
+        // specify options here
+      });
     });
 
     // Al iniciar la pantalla obtenemos el año

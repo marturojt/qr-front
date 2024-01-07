@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row section">
+    <div class="col s12 center-align">
+      <h3 class="header">Restablecer contraseña</h3>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div *ngIf="tokenStatus == TokenStatus.Validating" class="container section">
+  Validating token...
+</div>
+
+<div *ngIf="tokenStatus == TokenStatus.Invalid" class="container section">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <div class="card-panel">
+        <span>
+          Token validation failed, if the token has expired you can get a new one at the <a
+            routerLink="../forgot-password">forgot password</a> page.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tokenStatus == TokenStatus.Valid" class="container section mt-4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row" style="gap: 1em;">
+
+      <!-- Password -->
+      <div class="col s12 m6 offset-m3 input-field">
+        <input type="password" formControlName="password" id="password" name="password" placeholder=" " maxlength="100"
+          class="validate" required>
+        <label for="password">Contraseña</label>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="col s12 m6 offset-m3 input-field">
+        <input type="password" formControlName="confirmPassword" id="confirmPassword" name="confirmPassword"
+          placeholder=" " maxlength="100" class="validate" required>
+        <label for="password">Confirmación de contraseña</label>
+      </div>
+
+    </div>
+
+    <div class="section"></div>
+
+    <div class="row">
+
+      <div class="col s12 center-align">
+        <a routerLink="../login" class="btn text mr-4">Cancelar</a>
+        <button [disabled]="!this.form.valid || this.loading" class="btn qrsite-contrast-background">Enviar</button>
+      </div>
+
+    </div>
+  </form>
+</div>
