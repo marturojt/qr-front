@@ -83,18 +83,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "qr-front:build"
+            "buildTarget": "qr-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "qr-front:build:production"
+              "buildTarget": "qr-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "qr-front:build"
+            "buildTarget": "qr-front:build"
           }
         },
         "test": {
