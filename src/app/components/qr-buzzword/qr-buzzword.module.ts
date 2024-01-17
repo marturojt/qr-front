@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { QrBuzzwordRoutingModule } from './qr-buzzword-routing.module';
 import { GeneraQrBuzzwordComponent } from './genera-qr-buzzword/genera-qr-buzzword.component';
 import { QrBuzzwordLayoutComponent } from './qr-buzzword-layout/qr-buzzword-layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { QrBuzzwordLayoutComponent } from './qr-buzzword-layout/qr-buzzword-layo
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     QrBuzzwordRoutingModule
   ]
 })

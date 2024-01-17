@@ -1,1 +1,38 @@
-<p>genera-qr-buzzword works!</p>
+<div class="container">
+  <div class="row section">
+    <div class="col s12 center-align">
+      <h3 class="header">Genera QR para Buzzword</h3>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="container section mt-4">
+  <form [formGroup]="formQrBuzz" (ngSubmit)="onSubmit()">
+    <div class="row" style="gap: 1em;">
+
+      <!-- Nombres -->
+      <div class="col s12 m6 input-field">
+        <input type="text" formControlName="nombres" id="nombres" name="nombres" placeholder=" " maxlength="100"
+          class="validate" required>
+        <label for="nombres">Nombre(s) <sup>*</sup></label>
+      </div>
+
+      <!-- Primer Apellido -->
+      <div class="col s12 m6 input-field">
+        <input type="text" formControlName="primerApellido" id="primerApellido" name="primerApellido" placeholder=" " maxlength="100"
+          class="validate" required>
+        <label for="primerApellido">Primer Apellido <sup>*</sup></label>
+      </div>
+
+      <!-- Segundo Apellido -->
+      <div class="col s12 m6 input-field">
+        <input type="text" formControlName="segundoApellido" id="segundoApellido" name="segundoApellido" placeholder=" " maxlength="100"
+          class="validate">
+        <label for="segundoApellido">Segundo Apellido</label>
+      </div>
+
+    </div>
+  </form>
+</div>
