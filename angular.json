@@ -141,7 +141,6 @@
       }
     }
   },
-  "defaultProject": "qr-front",
   "cli": {
     "analytics": false
   },
