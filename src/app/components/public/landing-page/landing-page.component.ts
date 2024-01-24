@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
 
 
-// Init de JQuery y Materialize CSS
+import { Account, Role } from '../../../_models';
+import { AccountService } from '@app/_services';
+
+// Materialize CSS
 declare var M: any; // MaterializeCSS
-declare var $: any; // jQuery
 
 @Component({
   selector: 'app-landing-page',
@@ -13,10 +16,19 @@ declare var $: any; // jQuery
 })
 export class LandingPageComponent implements OnInit {
 
+  // Continer Variables
+  Role = Role;
+  account: Account;
+
   // Variables
   anioActual: string;
 
-  constructor() { }
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+  ) {
+    this.accountService.account.subscribe(y => this.account = y);
+  }
 
 
 

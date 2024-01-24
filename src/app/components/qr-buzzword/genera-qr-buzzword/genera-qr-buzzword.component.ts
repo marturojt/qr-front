@@ -21,14 +21,22 @@ export class GeneraQrBuzzwordComponent implements OnInit {
     private alertService: AlertService
   ) { }
 
+  //#region REGEX formulario
+  patronNSS = "^(\\d{2})(\\d{2})(\\d{2})\\d{5}$";
+  patronIdBuzz = "^\\d{5}$";
+
   ngOnInit(): void {
 
       // Login form
       this.formQrBuzz = this.formBuilder.group({
         buzzwordId: ['', [
-          Validators.required
+          Validators.required,
+          Validators.pattern(this.patronIdBuzz)
         ]],
-        nss: ['', Validators.required],
+        nss: ['', [
+          Validators.required,
+          Validators.pattern(this.patronNSS)
+        ]],
         nombres: ['', Validators.required],
         primerApellido: ['', Validators.required],
         segundoApellido: [''],
@@ -39,6 +47,10 @@ export class GeneraQrBuzzwordComponent implements OnInit {
 
   // Access to form controls
   get fQrBuzz() { return this.formQrBuzz.controls; }
+
+  logss() {
+    console.log(this.formQrBuzz);
+  }
 
 
   // Submit

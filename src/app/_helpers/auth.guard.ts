@@ -13,7 +13,7 @@ export class AuthGuard  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const account = this.accountService.accountValue;
         if (account) {
-          console.log(account)
+          // console.log(account)
             // check if route is restricted by role
             if (route.data.roles && !route.data.roles.includes(account.role)) {
                 console.log("No tiene permisos");
@@ -21,7 +21,7 @@ export class AuthGuard  {
                 this.router.navigate(['/']);
                 return false;
             } else {
-              console.log("Tiene permisos");
+              // console.log("Tiene permisos");
             }
 
             // authorized so return true

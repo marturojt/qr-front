@@ -6,9 +6,8 @@ import { environment } from '../environments/environment';
 import { AccountService } from './_services';
 import { Account, Role } from './_models';
 
-// Init de JQuery y Materialize CSS
+// Materialize CSS
 declare var M: any; // MaterializeCSS
-declare var $: any; // jQuery
 
 // Variable para Google Analytics
 declare let gtag: (property: string, value: any, configs: any) => {};
