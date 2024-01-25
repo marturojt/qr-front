@@ -27,26 +27,27 @@
       </div>
     </div>
 
+    <!-- Formulario nombres -->
     <div class="row" style="gap: 1em;">
 
       <!-- Nombres -->
       <div class="col s12 m6 l4 input-field outlined">
         <input type="text" formControlName="nombres" id="nombres" name="nombres" placeholder=" " maxlength="100"
-        oninput="this.value = this.value.toUpperCase()" class="validate" required>
+          oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="nombres">Nombre(s) <sup>*</sup></label>
       </div>
 
       <!-- Primer Apellido -->
       <div class="col s12 m6 l4 input-field outlined">
-        <input type="text" formControlName="primerApellido" id="primerApellido" name="primerApellido" placeholder=" " maxlength="100"
-        oninput="this.value = this.value.toUpperCase()" class="validate" required>
+        <input type="text" formControlName="primerApellido" id="primerApellido" name="primerApellido" placeholder=" "
+          maxlength="100" oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="primerApellido">Primer Apellido <sup>*</sup></label>
       </div>
 
       <!-- Segundo Apellido -->
       <div class="col s12 m6 l4 input-field outlined">
-        <input type="text" formControlName="segundoApellido" id="segundoApellido" name="segundoApellido" placeholder=" " maxlength="100"
-        oninput="this.value = this.value.toUpperCase()" class="validate">
+        <input type="text" formControlName="segundoApellido" id="segundoApellido" name="segundoApellido" placeholder=" "
+          maxlength="100" oninput="this.value = this.value.toUpperCase()" class="validate">
         <label for="segundoApellido">Segundo Apellido</label>
       </div>
 
@@ -59,12 +60,13 @@
       </div>
     </div>
 
+    <!-- Formulario datos identificación -->
     <div class="row" style="gap: 1em;">
 
       <!-- Puesto -->
       <div class="col s12 m6 l4 input-field outlined">
         <input type="text" formControlName="puesto" id="puesto" name="puesto" placeholder=" " maxlength="100"
-        oninput="this.value = this.value.toUpperCase()" class="validate" required>
+          oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="puesto">Puesto <sup>*</sup></label>
         <span class="supporting-text"></span>
       </div>
@@ -72,10 +74,11 @@
       <!-- No Empleado -->
       <div class="col s12 m6 l4 input-field outlined">
         <input type="text" formControlName="buzzwordId" id="buzzwordId" name="buzzwordId" placeholder=" " maxlength="5"
-        pattern={{this.patronIdBuzz}} class="validate" required>
+          pattern={{this.patronIdBuzz}} class="validate" required>
         <label for="buzzwordId">No. de Empleado <sup>*</sup></label>
         <span *ngIf="fQrBuzz.buzzwordId.pristine" class="supporting-text">Proporcionado por Recursos Humanos</span>
-        <span *ngIf="fQrBuzz.buzzwordId.invalid && !fQrBuzz.buzzwordId.pristine" class="supporting-text red-text text-darken-2">5 caracteres númericos</span>
+        <span *ngIf="fQrBuzz.buzzwordId.invalid && !fQrBuzz.buzzwordId.pristine"
+          class="supporting-text red-text text-darken-2">5 caracteres númericos</span>
       </div>
 
       <!-- NSS -->
@@ -84,9 +87,33 @@
           pattern={{this.patronNSS}} class="validate" required>
         <label for="nss">NSS <sup>*</sup></label>
         <span *ngIf="fQrBuzz.nss.pristine" class="supporting-text">11 caracteres numéricos</span>
-        <span *ngIf="fQrBuzz.nss.invalid && !fQrBuzz.nss.pristine" class="supporting-text red-text text-darken-2">11 caracteres numéricos</span>
+        <span *ngIf="fQrBuzz.nss.invalid && !fQrBuzz.nss.pristine" class="supporting-text red-text text-darken-2">11
+          caracteres numéricos</span>
       </div>
 
+
+    </div>
+
+    <!-- Sección fotografía -->
+    <div class="row ml-2 mb-4 mt-4">
+      <div class="col s12">
+        <h6>Foto para la credencial:</h6>
+      </div>
+    </div>
+
+    <div class="row" style="gap: 1em;">
+
+      <!-- fotografía -->
+      <div class="col s12 m6 l4 file-field input-field outlined">
+        <div class="btn-floating btn-large waves-effect waves-light qrsite-contrast-background">
+          <i class="material-icons">attach_file</i>
+          <input type="file" (change)="fileChange($event)" id="foto" placeholder="Upload file"
+            accept="image/png, image/jpeg">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
 
     </div>
 

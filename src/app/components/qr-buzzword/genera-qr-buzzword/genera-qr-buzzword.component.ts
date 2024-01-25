@@ -52,6 +52,44 @@ export class GeneraQrBuzzwordComponent implements OnInit {
     console.log(this.formQrBuzz);
   }
 
+  // FileChange
+  // Para leer el documento y asignarlo segun el tipo documental
+  fileChange(event) {
+    console.log(event)
+    let file = event.target.files[0];
+    // if (this.modoDebug) console.log(file);
+    // Validación de que en realidad se tenga un archivo
+    if (!file) return
+    // Validación de peso del documentos 2097152 (2MB)
+    if (+file.size > 4194304) {
+      this.alertService.toastError("El tamaño del archivo debe de ser menor a 4MB")
+      $('#' + event.target.id).val('').removeClass('valid');
+      M.updateTextFields();
+      return
+    }
+    // Validación de tipo de archivo
+    if (file.type != 'application/pdf' && file.type != 'image/jpeg' && file.type != 'image/png') {
+      this.alertService.toastError("Solo son validos los documentos de tipo PDF, JPEG o PNG")
+      $('#' + event.target.id).val('').removeClass('valid');
+      M.updateTextFields();
+      return
+    }
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      switch (event.target.id) {
+        // Identificacion
+        case 'identificacionOficial':
+          // this.formAltaCliente.patchValue({
+          //   fotoIdentificacion: reader.result
+          // })
+          // this.identificacionCargada = true;
+          // this.fnValidaDocumentosCompletos()
+          break;
+      }
+    };
+  }
+
 
   // Submit
   onSubmit() {
@@ -61,6 +99,7 @@ export class GeneraQrBuzzwordComponent implements OnInit {
     if (this.formQrBuzz.invalid) {
       return;
     }
+
 
     this.loading = true;
     // this.accountService.login(this.f.email.value, this.f.password.value)

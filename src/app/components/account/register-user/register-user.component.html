@@ -16,21 +16,21 @@
       <!-- Nombres -->
       <div class="col s12 m6 input-field">
         <input type="text" formControlName="firstName" id="firstName" name="firstName" placeholder=" " maxlength="100"
-          class="validate" required>
+          oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="firstName">Nombre(s) <sup>*</sup></label>
       </div>
 
       <!-- Apellidos -->
       <div class="col s12 m6 input-field">
         <input type="text" formControlName="lastName" id="lastName" name="lastName" placeholder=" " maxlength="100"
-          class="validate" required>
+          oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="lastName">Apellido(s) <sup>*</sup></label>
       </div>
 
       <!-- Email -->
       <div class="col s12 m6 input-field">
         <input type="email" formControlName="email" id="email" name="email" placeholder=" " maxlength="100"
-          class="validate" required>
+          oninput="this.value = this.value.toUpperCase()" class="validate" required>
         <label for="email">Email <sup>*</sup></label>
       </div>
 
