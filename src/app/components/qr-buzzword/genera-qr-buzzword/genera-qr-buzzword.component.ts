@@ -3,6 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService } from '@app/_services';
+import { QrBuzzService } from '@app/_services/qr-buzz/qr-buzz.service';
+
+
+// Init de JQuery y Materialize CSS
+declare var M: any; // MaterializeCSS
+// declare var $: any; // jQuery
+
+
 @Component({
   selector: 'app-genera-qr-buzzword',
   templateUrl: './genera-qr-buzzword.component.html',
@@ -18,7 +26,8 @@ export class GeneraQrBuzzwordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private qrBuzzService: QrBuzzService
   ) { }
 
   //#region REGEX formulario
@@ -41,7 +50,7 @@ export class GeneraQrBuzzwordComponent implements OnInit {
         primerApellido: ['', Validators.required],
         segundoApellido: [''],
         puesto: ['', Validators.required],
-        foto: ['']
+        foto: ['', Validators.required],
       });
   }
 
@@ -55,12 +64,10 @@ export class GeneraQrBuzzwordComponent implements OnInit {
   // FileChange
   // Para leer el documento y asignarlo segun el tipo documental
   fileChange(event) {
-    console.log(event)
     let file = event.target.files[0];
-    // if (this.modoDebug) console.log(file);
     // Validación de que en realidad se tenga un archivo
     if (!file) return
-    // Validación de peso del documentos 2097152 (2MB)
+    // Validación de peso del documentos 4194304 (4MB)
     if (+file.size > 4194304) {
       this.alertService.toastError("El tamaño del archivo debe de ser menor a 4MB")
       $('#' + event.target.id).val('').removeClass('valid');
@@ -68,8 +75,8 @@ export class GeneraQrBuzzwordComponent implements OnInit {
       return
     }
     // Validación de tipo de archivo
-    if (file.type != 'application/pdf' && file.type != 'image/jpeg' && file.type != 'image/png') {
-      this.alertService.toastError("Solo son validos los documentos de tipo PDF, JPEG o PNG")
+    if (file.type != 'image/jpeg' && file.type != 'image/png') {
+      this.alertService.toastError("Solo son validos los documentos de tipo JPEG o PNG")
       $('#' + event.target.id).val('').removeClass('valid');
       M.updateTextFields();
       return
@@ -79,12 +86,10 @@ export class GeneraQrBuzzwordComponent implements OnInit {
     reader.onload = () => {
       switch (event.target.id) {
         // Identificacion
-        case 'identificacionOficial':
-          // this.formAltaCliente.patchValue({
-          //   fotoIdentificacion: reader.result
-          // })
-          // this.identificacionCargada = true;
-          // this.fnValidaDocumentosCompletos()
+        case 'foto':
+          this.formQrBuzz.patchValue({
+            foto: reader.result
+          })
           break;
       }
     };
@@ -102,19 +107,22 @@ export class GeneraQrBuzzwordComponent implements OnInit {
 
 
     this.loading = true;
-    // this.accountService.login(this.f.email.value, this.f.password.value)
-    //   .pipe(first())
-    //   .subscribe({
-    //     next: () => {
-    //       // Get return url from query parameters or default to home page
-    //       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    //       this.router.navigateByUrl(returnUrl);
-    //     },
-    //     error: error => {
-    //       this.alertService.toastError(error);
-    //       this.loading = false;
-    //     }
-    //   })
+    this.qrBuzzService.newEmployee(this.formQrBuzz.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.alertService.toastWin("Empleado creado correctamente");
+          // this.formQrBuzz.reset();
+          this.submitted = false;
+          this.loading = false;
+          this.router.navigate(['/qr-buzzword']);
+        },
+        error: error => {
+          this.alertService.toastError(error);
+          this.loading = false;
+        }
+      })
+
   }
 
 }

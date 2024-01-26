@@ -92,6 +92,10 @@ input.ng-invalid:not(form) {
   border-bottom: 1px solid $qrsite-accent-color;
   box-shadow: 0 1px 0 0 $qrsite-accent-color;
 }
+.input-field input[type=file]:focus {
+  border-bottom: 1px solid $qrsite-accent-color;
+  box-shadow: 0 1px 0 0 $qrsite-accent-color;
+}
 
 /* label color */
 .input-field label {

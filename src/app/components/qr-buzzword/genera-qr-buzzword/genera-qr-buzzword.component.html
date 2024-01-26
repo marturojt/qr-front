@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="container section mt-4">
+<div class="container section">
   <form [formGroup]="formQrBuzz" (ngSubmit)="onSubmit()">
 
     <!-- Sección Nombres -->
@@ -97,7 +97,7 @@
     <!-- Sección fotografía -->
     <div class="row ml-2 mb-4 mt-4">
       <div class="col s12">
-        <h6>Foto para la credencial:</h6>
+        <h6>Foto para la credencial: <sup>*</sup></h6>
       </div>
     </div>
 
@@ -105,9 +105,9 @@
 
       <!-- fotografía -->
       <div class="col s12 m6 l4 file-field input-field outlined">
-        <div class="btn-floating btn-large waves-effect waves-light qrsite-contrast-background">
+        <div class="btn qrsite-contrast-background">
           <i class="material-icons">attach_file</i>
-          <input type="file" (change)="fileChange($event)" id="foto" placeholder="Upload file"
+          <input type="file" (change)="fileChange($event)" id="foto" placeholder=" "
             accept="image/png, image/jpeg">
         </div>
         <div class="file-path-wrapper">
@@ -118,7 +118,15 @@
     </div>
 
 
+    <div class="row">
+      <div class="col s12 center-align">
+        <a routerLink="qrBuzzword" class="btn text mr-4">Cancelar</a>
+        <button [disabled]="!this.formQrBuzz.valid || this.loading" class="btn qrsite-contrast-background">Continuar</button>
+      </div>
+    </div>
+
+
   </form>
 </div>
 
-<a (click)="logss()" class="btn">log</a>
+<!-- <a (click)="logss()" class="btn">log</a> -->
