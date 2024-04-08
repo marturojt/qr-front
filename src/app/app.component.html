@@ -1,5 +1,5 @@
 ﻿<!-- NAVBAR -->
-<div #navBar class="navbar-fixed hide-on-small-and-down">
+<div #navBar class="navbar-fixed">
   <nav class="theme-background-variant">
     <div class="nav-wrapper">
       <a data-target="sideMenu" class="sidenav-trigger show-on-large" href="#" *ngIf="account"><i
@@ -7,33 +7,33 @@
       <span>&nbsp;</span>
       <!-- Logo que regresa a Home -->
       <a *ngIf="!isLightTheme" routerLink="/" class="brand-logo hide-on-large-only">
-        <img src="assets/images/logos/qrlogo.svg" alt="logo-navbar" class="logoNavbarSmall">
+        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbarSmall">
       </a>
       <a *ngIf="!isLightTheme" routerLink="/" class="brand-logo hide-on-med-and-down">
-        <img src="assets/images/logos/qrlogo.svg" alt="logo-navbar" class="logoNavbar">
+        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbar">
       </a>
       <!-- Logo que regresa a Home -->
       <a *ngIf="isLightTheme" routerLink="/" class="brand-logo hide-on-large-only">
-        <img src="assets/images/logos/qrlogo.svg" alt="logo-navbar" class="logoNavbarSmall">
+        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbarSmall">
       </a>
       <a *ngIf="isLightTheme" routerLink="/" class="brand-logo hide-on-med-and-down">
-        <img src="assets/images/logos/qrlogo.svg" alt="logo-navbar" class="logoNavbar">
+        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbar">
       </a>
 
       <!-- Menú -->
       <ul class="right hide-on-med-and-down">
-        <li>
+        <!-- <li>
           <div class="switch">
             <label>
               <input type="checkbox" (change)="onThemeSwitchChange()" [checked]="isLightTheme">
               <span class="lever"></span>
             </label>
           </div>
-        </li>
-        <li *ngIf="!isLightTheme"><a (click)="onThemeSwitchChange()"><i
-              class="material-icons theme-main-text-variant">bedtime</i></a></li>
-        <li *ngIf="isLightTheme"><a (click)="onThemeSwitchChange()"><i
-              class="material-icons theme-main-text-variant">flare</i></a></li>
+        </li> -->
+        <!-- <li *ngIf="!isLightTheme"><a (click)="onThemeSwitchChange()"><i
+              class="material-icons theme-main-text-variant">bedtime</i></a></li> -->
+        <!-- <li *ngIf="isLightTheme"><a (click)="onThemeSwitchChange()"><i
+              class="material-icons theme-main-text-variant">flare</i></a></li> -->
         <li *ngIf="account"><a (click)="logout()"><i
               class="material-icons theme-main-text-variant">directions_run</i></a></li>
       </ul>
