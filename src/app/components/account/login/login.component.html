@@ -1,11 +1,11 @@
-<div class="fondo-izquierda">
+<div class="fondo-degradado">
 
   <div class="section"></div>
   <div class="section"></div>
 
   <div class="row container login">
     <div class="col s12 m6 offset-m3">
-      <div class="card qrsite-light-background large">
+      <div class="card theme-background">
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="card-content">
@@ -19,14 +19,14 @@
 
               <!-- Username -->
               <div class="col s12 input-field">
-                <i class="material-icons prefix text-qrsite-accent">account_circle</i>
+                <i class="material-icons prefix theme-main-text">account_circle</i>
                 <input type="email" autocomplete="username" id="nombreUsuario" name="nombreUsuario" placeholder=" "
                   class="validate" formControlName="email" maxlength="100" required>
                 <label for="nombreUsuario">Email</label>
               </div>
               <!-- Password -->
               <div class="col s12 input-field">
-                <i class="material-icons prefix text-qrsite-accent">vpn_key</i>
+                <i class="material-icons prefix theme-main-text">vpn_key</i>
                 <input type="password" autocomplete="current-password" name="passwordUsuario" id="passwordUsuario"
                   placeholder=" " formControlName="password" maxlength="30" required>
                 <label for="passwordUsuario">Password</label>
@@ -41,9 +41,9 @@
 
               <div class="col s12">
                 <div class="center-align">
-                  <a tabindex="0" class="btn text mr-4" routerLink="../register">Registrarse</a>
+                  <a tabindex="0" class="btn text mr-4 theme-main-text" routerLink="../register">Registrarse</a>
                   <button [disabled]="!this.form.valid || this.loading"
-                    class="btn qrsite-contrast-background">Entrar</button>
+                    class="btn theme-color-primary theme-color-on-primary-text">Entrar</button>
                 </div>
               </div>
 

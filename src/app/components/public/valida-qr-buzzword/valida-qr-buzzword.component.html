@@ -1,3 +1,54 @@
-<p>valida-qr-buzzword works!</p>
-
-<p>{{id}}</p>
+<div class="section">
+  <br>
+</div>
+<div *ngIf="!this.datosVCard" class="container section center-align">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="this.datosVCard" class="container section">
+  <div class="row">
+    <div class="col s12 m4 m-2 center-align">
+      <img src="{{datosVCard.foto}}" class="circle responsive-img profilePic">
+    </div>
+    <div class="col s12 m6 m-2">
+      <div class="card small theme-background-variant">
+        <div class="card-content theme-main-text-variant">
+          <span class="card-title center-align">
+            <strong>
+              {{datosVCard.nombres}} {{datosVCard.primerApellido}} {{datosVCard.segundoApellido}}
+            </strong>
+          </span>
+          <p class="center-align">
+            <strong>{{datosVCard.puesto | uppercase}}, <a href="https://grupocsi.com">{{datosVCard.empresa | uppercase}}</a></strong>
+          </p>
+          <br>
+          <p>
+            <strong>Correo: </strong><a href="mailto:{{datosVCard.email}}">{{datosVCard.email}}</a>
+          </p>
+          <p>
+            <strong>Telefono móvil: </strong> <a href="tel:{{datosVCard.telefonoMovil.split(' ').join('')}}">{{datosVCard.telefonoMovil}}</a>
+          </p>
+          <p>
+            <strong>Teléfono oficina: </strong> {{datosVCard.telefonoOficina}}
+          </p>
+          <br>
+          <br>
+          <p>
+            <!-- linkedin url -->
+            <a *ngIf="datosVCard.LinkedInURL" href="{{datosVCard.LinkedInURL}}" target="_blank">
+              <img src="assets/images/logos/linkedin.svg" alt="linkedin" class="logoSocial">
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -24,6 +24,9 @@ export class CriptoServiceService {
     // return CryptoJS.AES.decrypt(textToDecrypt, this.pshh.trim()).toString(CryptoJS.enc.Utf8);
     let decData = CryptoJS.enc.Base64.parse(textToDecrypt).toString(CryptoJS.enc.Utf8)
     let bytes = CryptoJS.AES.decrypt(decData, this.pshh.trim()).toString(CryptoJS.enc.Utf8)
+    if (bytes === '') {
+      return bytes
+    }
     return JSON.parse(bytes)
   }
 

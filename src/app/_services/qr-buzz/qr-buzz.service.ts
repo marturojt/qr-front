@@ -5,9 +5,10 @@ import { HttpClient } from '@angular/common/http';
 // import { map, finalize } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { Employee } from '@app/_models';
+import { Employee, VcardData } from '@app/_models';
 
-const baseUrl = `${environment.apiUrl}/qr-buzz`;
+const baseUrlQR = `${environment.apiUrl}/qr-buzz`;
+const baseUrlvCard = `${environment.apiUrl}/vcard`;
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,13 @@ export class QrBuzzService {
 
   // Create new employee into db
   newEmployee(employee: Employee) {
-    return this.http.post(`${baseUrl}/empleado`, employee);
+    return this.http.post(`${baseUrlQR}/empleado`, employee);
+  }
+
+
+  // get vcard data
+  getVCardData(id: number) {
+    return this.http.get<VcardData>(`${baseUrlvCard}/${id}`);
   }
 
 }

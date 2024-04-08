@@ -26,7 +26,7 @@ const routes: Routes = [
     { path: 'qrBuzzword', loadChildren: qrBuzzwordModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'account/login' }
 ];
 
 @NgModule({
