@@ -19,7 +19,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "sweetalert2"
+              "sweetalert2",
+              "crypto-js"
             ],
             "outputPath": "dist/qr-front",
             "index": "src/index.html",

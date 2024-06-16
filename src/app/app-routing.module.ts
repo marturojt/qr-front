@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
-
-import { HomeComponent } from './components/home';
+import { HomeComponent } from './components/home/home.component';
 
 const accountModule = () => import('./components/account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./components/admin/admin.module').then(x => x.AdminModule);

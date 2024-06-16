@@ -1,7 +1,18 @@
-.logoSocial {
-  max-width: 46px;
+// Backcground
+.bg-vcard {
+  height: 100vh;
+  background: linear-gradient(137deg, rgba(34,160,187,1) 0%, rgba(33,47,143,1) 30%, rgba(0,0,0,1) 70%);
 }
 
+// Profile Pic
 .profilePic {
   max-height: 300px;
+  border-radius: 25%;
+  border: 8px solid #fff;
+}
+
+
+// Logi size
+.logoSocial {
+  max-width: 46px;
 }

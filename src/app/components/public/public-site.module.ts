@@ -6,6 +6,7 @@ import { PublicSiteRoutingModule } from './public-site-routing.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PublicSiteLayoutComponent } from './public-site-layout/public-site-layout.component';
 import { ValidaQrBuzzwordComponent } from './valida-qr-buzzword/valida-qr-buzzword.component';
+import { GeneraQrIdCifradoComponent } from './genera-qr-id-cifrado/genera-qr-id-cifrado.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ValidaQrBuzzwordComponent } from './valida-qr-buzzword/valida-qr-buzzwo
     LandingPageComponent,
     PublicSiteLayoutComponent,
     ValidaQrBuzzwordComponent,
+    GeneraQrIdCifradoComponent,
   ],
   imports: [
     CommonModule,
