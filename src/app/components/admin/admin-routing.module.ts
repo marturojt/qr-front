@@ -4,16 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { SubNavComponent } from './subnav.component';
 import { OverviewComponent } from './overview.component';
 import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
-
-const accountsModule = () => import('./accounts/accounts.module').then(x => x.AccountsModule);
+import { AccountListComponent } from './account-list/account-list.component';
 
 const routes: Routes = [
-    { path: '', component: SubNavComponent, outlet: 'subnav' },
+    // { path: '', component: SubNavComponent, outlet: 'subnav' },
     {
         path: '', component: LayoutAdminComponent,
         children: [
             { path: '', component: OverviewComponent },
-            { path: 'accounts', loadChildren: accountsModule }
+            { path: 'accounts', component: AccountListComponent }
         ]
     }
 ];

@@ -2,21 +2,22 @@
 <div #navBar class="navbar-fixed">
   <nav class="theme-background-variant">
     <div class="nav-wrapper">
-      <a data-target="sideMenu" class="sidenav-trigger show-on-large" href="#" *ngIf="account"><i
-          class="material-icons grey-text text-darken-4">menu</i></a>
+
+      <!-- Menú lateral -->
+      <a data-target="sideMenu" class="sidenav-trigger show-on-large" href="#"
+        *ngIf="this.router.url.split('?')[0] != '/account/login' && this.router.url.split('/')[1] != 'credencial-buzz'">
+        <i class="material-icons grey-text text-darken-4">menu</i>
+      </a>
+
       <span>&nbsp;</span>
+
       <!-- Logo que regresa a Home -->
-      <a *ngIf="!isLightTheme" routerLink="/" class="brand-logo hide-on-large-only">
+
+      <a routerLink="/" class="brand-logo hide-on-large-only">
         <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbarSmall">
       </a>
-      <a *ngIf="!isLightTheme" routerLink="/" class="brand-logo hide-on-med-and-down">
-        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbar">
-      </a>
-      <!-- Logo que regresa a Home -->
-      <a *ngIf="isLightTheme" routerLink="/" class="brand-logo hide-on-large-only">
-        <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbarSmall">
-      </a>
-      <a *ngIf="isLightTheme" routerLink="/" class="brand-logo hide-on-med-and-down">
+
+      <a routerLink="/" class="brand-logo hide-on-med-and-down">
         <img src="assets/images/logos/grupocsi.png" alt="logo-navbar" class="logoNavbar">
       </a>
 
@@ -34,8 +35,8 @@
               class="material-icons theme-main-text-variant">bedtime</i></a></li> -->
         <!-- <li *ngIf="isLightTheme"><a (click)="onThemeSwitchChange()"><i
               class="material-icons theme-main-text-variant">flare</i></a></li> -->
-        <li *ngIf="account"><a (click)="logout()"><i
-              class="material-icons theme-main-text-variant">directions_run</i></a></li>
+        <!-- <li *ngIf="account"><a (click)="logout()"><i
+              class="material-icons theme-main-text-variant">directions_run</i></a></li> -->
       </ul>
 
     </div>
@@ -56,16 +57,44 @@
     </div>
   </li>
 
+  <!-- Iniciar sesión -->
+  <li>
+    <a routerLink="/account/login" class="sidenav-close" *ngIf="!this.account">
+      <i class="material-icons">account_circle</i>Iniciar sesión
+    </a>
+  </li>
+
+  <!-- Registrarse -->
+  <li>
+    <a routerLink="/account/register" class="sidenav-close" *ngIf="!this.account">
+      <i class="material-icons">person_add</i>Registrarse
+    </a>
+  </li>
+
   <!-- Home, siempre va en el menú -->
-  <li><a routerLink="/" id="aHomeLink"><i class="material-icons">home</i>Home</a></li>
+  <li>
+    <a routerLink="/" id="aHomeLink"><i class="material-icons">home</i>Home</a>
+  </li>
+
+  <!-- Admin account -->
+  <li *ngIf="this.account && this.account.role == 'Admin'">
+    <a routerLink="/admin" class="sidenav-close">
+      <i class="material-icons">admin_panel_settings</i>Admin
+    </a>
+  </li>
 
 
   <!-- <li><a routerLink="/internal/calendar"><i class="material-icons">calendar_month</i>Calendario</a></li> -->
 
 
   <!-- Cerrar sesión -->
-  <li><a style="cursor: pointer;" (click)="logout()" class="sidenav-close"><i
-        class="material-icons">directions_run</i>Cerrar sesión</a></li>
+  <li *ngIf="this.account">
+    <a style="cursor: pointer;" (click)="logout()" class="sidenav-close">
+      <i class="material-icons">directions_run</i>Cerrar sesión
+    </a>
+  </li>
+
+
 </ul>
 
 

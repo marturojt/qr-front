@@ -6,6 +6,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { SubNavComponent } from './subnav.component';
 import { OverviewComponent } from './overview.component';
 import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
+import { AccountListComponent } from './account-list/account-list.component';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
     declarations: [
         SubNavComponent,
         OverviewComponent,
-        LayoutAdminComponent
+        LayoutAdminComponent,
+        AccountListComponent
     ]
 })
 export class AdminModule { }

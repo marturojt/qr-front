@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row section">
+    <div class="col s12 center-align">
+      <h3 class="header">Listado de usuarios</h3>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="container">
+  <div class="row section">
+    <div class="col s12 m8">
+      <blockquote>
+        Listado de cuentas activas en el sistema
+      </blockquote>
+    </div>
+
+    <!-- TODO: dar funcionalidad a estes boton de crear cuenta -->
+    <div class="col s12 m4 center-align">
+      <a routerLink="add" class="btn btn-sm btn-success mb-2">Crear cuenta</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<div class="container">
+  <div class="row section">
+    <div class="col s12">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of accounts">
+            <td>{{item.firstName | uppercase}} {{item.lastName | uppercase}}</td>
+            <td>{{item.email | lowercase}}</td>
+            <td>{{item.role}}</td>
+            <td class="center-align">
+              <!-- Editar cuenta -->
+              <a routerLink="edit/{{item.id}}" class="btn btn-sm btn-primary mr-1">Editar</a>
+              <!-- Eliminar cuenta -->
+              <button (click)="deleteAccount(item.id)" class="btn btn-sm btn-danger btn-delete-account ml-1"
+                [disabled]="item.isDeleting || this.account.id == item.id">
+                <span *ngIf="item.isDeleting" class="spinner-border spinner-border-sm"></span>
+                <span *ngIf="!item.isDeleting">Eliminar</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

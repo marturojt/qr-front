@@ -26,11 +26,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Container variables
   Role = Role;
   account: Account;
+  currentRoute: string;
 
   constructor(
     private accountService: AccountService,
     public router: Router
   ) {
+
     this.accountService.account.subscribe(x => this.account = x);
 
     // Para poblar lo de google Analytics
@@ -47,9 +49,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
     });
+
   }
 
   ngOnInit(): void {
+
+    console.log(this.router);
 
     document.body.setAttribute(
       'data-theme',
