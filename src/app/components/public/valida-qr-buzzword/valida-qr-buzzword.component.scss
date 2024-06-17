@@ -1,7 +1,7 @@
 // Backcground
 .bg-vcard {
   height: 100vh;
-  background: linear-gradient(137deg, rgba(34,160,187,1) 0%, rgba(33,47,143,1) 30%, rgba(0,0,0,1) 70%);
+  background: linear-gradient(137deg, rgba(34,160,187,1) 0%, rgba(33,47,143,1) 30%, rgba(0,0,0,1) 100%);
 }
 
 // Profile Pic
@@ -9,6 +9,12 @@
   max-height: 300px;
   border-radius: 25%;
   border: 8px solid #fff;
+}
+
+// Puesto
+.puesto {
+  font-size: 1.3em;
+  // font-weight: bold;
 }
 
 
