@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    console.log(this.router);
+    // console.log(this.router);
 
     document.body.setAttribute(
       'data-theme',

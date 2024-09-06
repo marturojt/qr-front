@@ -47,7 +47,8 @@ export class ValidaQrBuzzwordComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.datosVCard = data;
-          // this.alertService.toastWin('Datos obtenidos correctamente');
+          this.alertService.toastWin('Datos obtenidos correctamente');
+          console.log(this.datosVCard);
         },
         error: error => {
           this.alertService.toastError(error);

@@ -15,31 +15,81 @@
     </div>
   </div>
   <div *ngIf="this.datosVCard" class="container section">
+
+
     <div class="row">
+
       <!-- foto -->
       <div class="col s12 m4 m-2 center-align">
         <img src="{{datosVCard.foto}}" class="responsive-img profilePic">
       </div>
+
       <!-- datos -->
       <div class="col s12 m6 m-2">
         <div class="section blue-grey-text text-lighten-5">
+
+
+          <!-- Nombre, puesto y empresa -->
           <div class="row">
-            <!-- Nombre, puesto y empresa -->
             <div class="col s12 center-align">
               <h5 id="nombreCompleto">
                 {{datosVCard.nombres}} {{datosVCard.primerApellido}} {{datosVCard.segundoApellido}}
               </h5>
-              <p id="puesto">
-                <span class="puesto">
-                  <span>{{datosVCard.puesto | uppercase}}</span>, <a class="btn text blue-grey-text text-lighten-5"
-                    href="https://grupocsi.com">{{datosVCard.empresa | uppercase}}</a>
-                </span>
-              </p>
             </div>
           </div>
+
+          <!-- puesto -->
+          <div class="row mt-1">
+            <div class="col s12 center-align">
+              <span class="puesto">
+                {{datosVCard.puesto | uppercase}}
+              </span>
+            </div>
+          </div>
+
+          <!-- empresa -->
+          <div class="row mt-1">
+            <div class="col s12 center-align">
+              <span class="empresa">
+                <a class="btn text blue-grey-text text-lighten-5" href="https://grupocsi.com">{{datosVCard.empresa |
+                  uppercase}}</a>
+              </span>
+            </div>
+          </div>
+
+          <!-- teléfono -->
+          <div class="row mt-1">
+            <div class="col s12 center-align">
+              <span class="telefono">
+                <a class="btn text icon-left blue-grey-text text-lighten-5" href="tel:{{datosVCard.telefonoMovil}}">
+                  <i class="material-icons">phone</i> {{datosVCard.telefonoMovil}}
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <!-- correo -->
+          <div class="row">
+            <div class="col s12 center-align">
+              <span class="correo">
+                <a class="btn text icon-left blue-grey-text text-lighten-5" href="mailto:{{datosVCard.email}}">
+                  <i class="material-icons">email</i> {{datosVCard.email}}
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <!-- linkedin -->
+          <div class="row">
+            <div class="col s12 center-align">
+              <span class="linkedin">
+                <a class="btn-large text blue-grey-text text-lighten-5" href="{{datosVCard.LinkedInURL}}">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
-
     </div>
-  </div>
-</div>
