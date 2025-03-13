@@ -11,4 +11,5 @@ export class VcardData {
   Address: string;
   LinkedInURL: string;
   foto: string;
+  vcf: string;
 }

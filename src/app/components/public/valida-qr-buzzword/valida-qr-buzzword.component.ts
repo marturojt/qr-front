@@ -36,6 +36,37 @@ export class ValidaQrBuzzwordComponent implements OnInit {
     this.getVCardData(+this.idDescifrado);
   }
 
+  //#region funciones del front
+
+  downloadVCard() {
+    // Extract only the base64 part
+    const base64Data = this.datosVCard.vcf.split(',')[1]; // Remove 'data:@file/x-vcard;base64,'
+
+    if (!base64Data) {
+      console.error("Invalid base64 data");
+      return;
+    }
+
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'text/vcard' });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'contact.vcf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  //#endregion
+
 
   //#region funciones privadas conexión a db
 
@@ -49,6 +80,9 @@ export class ValidaQrBuzzwordComponent implements OnInit {
           this.datosVCard = data;
           this.alertService.toastWin('Datos obtenidos correctamente');
           console.log(this.datosVCard);
+
+          // download vcard if exists
+          if (this.datosVCard.vcf) this.downloadVCard();
         },
         error: error => {
           this.alertService.toastError(error);
