@@ -268,13 +268,16 @@ export class VcardFormComponent implements OnInit {
       `FN:${nombre}`,
       `N:${data.primerApellido};${data.nombres};;;`,
     ];
-    if (data.empresa)         lines.push(`ORG:${data.empresa}`);
-    if (data.puesto)          lines.push(`TITLE:${data.puesto}`);
-    if (data.telefonoMovil)   lines.push(`TEL;TYPE=CELL:${data.telefonoMovil}`);
-    if (data.telefonoOficina) lines.push(`TEL;TYPE=WORK:${data.telefonoOficina}`);
-    if (data.email)           lines.push(`EMAIL:${data.email}`);
-    if (data.Address)         lines.push(`ADR;TYPE=WORK:;;${data.Address};;;;`);
-    if (data.LinkedInURL)     lines.push(`URL:${data.LinkedInURL}`);
+    if (data.empresa)       lines.push(`ORG:${data.empresa}`);
+    if (data.puesto)        lines.push(`TITLE:${data.puesto}`);
+    if (data.telefonoMovil) lines.push(`TEL;TYPE=CELL:${data.telefonoMovil}`);
+    if (data.email)         lines.push(`EMAIL:${data.email}`);
+    if (data.LinkedInURL)   lines.push(`URL:${data.LinkedInURL}`);
+    if (data.foto && data.foto.startsWith('data:image/')) {
+      const [header, b64] = data.foto.split(',');
+      const type = header.split(';')[0].split(':')[1].toUpperCase().replace('IMAGE/', '');
+      lines.push(`PHOTO;ENCODING=BASE64;TYPE=${type}:${b64}`);
+    }
     lines.push('END:VCARD');
 
     const vcfText = lines.join('\r\n') + '\r\n';
