@@ -50,22 +50,38 @@
             <mat-error *ngIf="f['email'].hasError('email')">Email inválido</mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Teléfono móvil</mat-label>
-            <input matInput formControlName="telefonoMovil">
-            <mat-icon matSuffix>phone</mat-icon>
-            <mat-error *ngIf="f['telefonoMovil'].hasError('required')">Requerido</mat-error>
-          </mat-form-field>
+          <!-- Teléfono móvil con selector de país -->
+          <div style="display:flex; gap:8px; align-items:flex-start;">
+            <mat-form-field appearance="outline" style="width:130px; flex-shrink:0;">
+              <mat-label>País</mat-label>
+              <mat-select [(ngModel)]="codigoPaisMovil" [ngModelOptions]="{standalone:true}"
+                          (ngModelChange)="onCambiarPais()">
+                <mat-option *ngFor="let p of paises" [value]="p.codigo">
+                  {{ p.bandera }} {{ p.codigo }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Teléfono móvil</mat-label>
+              <input matInput [ngModel]="numMovilLocal" [ngModelOptions]="{standalone:true}"
+                     (input)="onInputMovil($event)"
+                     [placeholder]="formatoMovil">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="f['telefonoMovil'].hasError('required')">Requerido</mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline" class="full-width">
+          <!-- Teléfono oficina — oculto temporalmente -->
+          <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Teléfono oficina</mat-label>
             <input matInput formControlName="telefonoOficina">
-          </mat-form-field>
+          </mat-form-field> -->
 
-          <mat-form-field appearance="outline" class="full-width">
+          <!-- Dirección — oculta temporalmente -->
+          <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Dirección</mat-label>
             <input matInput formControlName="Address">
-          </mat-form-field>
+          </mat-form-field> -->
 
         </div>
 
@@ -75,15 +91,78 @@
           <mat-icon matSuffix>link</mat-icon>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Foto (URL o base64)</mat-label>
-          <textarea matInput formControlName="foto" rows="3"></textarea>
-        </mat-form-field>
+        <!-- ── Foto ─────────────────────────────────────────────── -->
+        <div style="margin-bottom:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <span style="font-size:0.85rem; color:#666;">Foto</span>
+            <mat-button-toggle-group [(ngModel)]="fotoModo" [ngModelOptions]="{standalone:true}" style="height:32px;">
+              <mat-button-toggle value="url" style="font-size:0.8rem;">URL</mat-button-toggle>
+              <mat-button-toggle value="archivo" style="font-size:0.8rem;">Subir archivo</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Archivo VCF (base64)</mat-label>
-          <textarea matInput formControlName="vcf" rows="3"></textarea>
-        </mat-form-field>
+          <ng-container *ngIf="fotoModo === 'url'">
+            <mat-form-field appearance="outline" class="full-width" style="margin-bottom:0">
+              <mat-label>URL de la foto</mat-label>
+              <input matInput formControlName="foto" (input)="onFotoUrlChange()" placeholder="https://...">
+              <mat-icon matSuffix>link</mat-icon>
+            </mat-form-field>
+          </ng-container>
+
+          <ng-container *ngIf="fotoModo === 'archivo'">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button mat-stroked-button type="button" (click)="fotoFileInput.click()">
+                <mat-icon>upload</mat-icon> Seleccionar imagen
+              </button>
+              <span style="font-size:0.82rem; color:#666;">{{ fotoPreview ? 'Imagen cargada' : 'Ningún archivo' }}</span>
+              <button *ngIf="fotoPreview" mat-icon-button type="button" (click)="limpiarFoto()" matTooltip="Quitar foto">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <input #fotoFileInput type="file" accept="image/*" style="display:none" (change)="onFotoArchivoChange($event)">
+          </ng-container>
+
+          <!-- Preview -->
+          <div *ngIf="fotoPreview" style="margin-top:10px;">
+            <img [src]="fotoPreview" style="height:80px; width:80px; object-fit:cover; border-radius:10px; border:2px solid #d4e8f5;">
+          </div>
+        </div>
+
+        <!-- ── VCF ──────────────────────────────────────────────── -->
+        <div style="margin-bottom:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-size:0.85rem; color:#666;">Archivo VCF (contacto)</span>
+            <mat-slide-toggle [(ngModel)]="generarVcfAuto" [ngModelOptions]="{standalone:true}" color="primary">
+              Generar automáticamente
+            </mat-slide-toggle>
+          </div>
+
+          <!-- Manual -->
+          <ng-container *ngIf="!generarVcfAuto">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button mat-stroked-button type="button" (click)="vcfFileInput.click()">
+                <mat-icon>upload</mat-icon> Subir .vcf
+              </button>
+              <span style="font-size:0.82rem; color:#666;">{{ vcfNombre || 'Ningún archivo' }}</span>
+              <button *ngIf="vcfNombre" mat-icon-button type="button" (click)="limpiarVcf()" matTooltip="Quitar VCF">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <input #vcfFileInput type="file" accept=".vcf,text/vcard" style="display:none" (change)="onVcfArchivoChange($event)">
+          </ng-container>
+
+          <!-- Auto -->
+          <ng-container *ngIf="generarVcfAuto">
+            <div style="background:#e8f4fb; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#004a70; display:flex; align-items:flex-start; gap:8px;">
+              <mat-icon style="font-size:18px; width:18px; height:18px; line-height:18px; margin-top:1px;">auto_awesome</mat-icon>
+              <span>
+                Se generará al guardar con: nombre completo, empresa, puesto, teléfonos, email
+                <ng-container *ngIf="form.value.Address">, dirección</ng-container>
+                <ng-container *ngIf="form.value.LinkedInURL">, LinkedIn</ng-container>.
+              </span>
+            </div>
+          </ng-container>
+        </div>
 
       </form>
     </mat-card-content>

@@ -55,6 +55,7 @@ $csi-theme: mat.define-light-theme((
 html, body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background: #f0f6fa;
 }
@@ -220,11 +221,14 @@ html, body {
 
 .admin-sidenav {
   width: 220px;
-  background: #004a70;
   color: white;
-  // Flex para empujar el logout al fondo
   display: flex !important;
   flex-direction: column;
+
+  // Angular Material v17 (MDC) renderiza un inner container — hay que apuntar ambos
+  &, .mat-drawer-inner-container {
+    background-color: #004a70 !important;
+  }
 
   .sidenav-logo {
     padding: 24px 20px 16px;
@@ -233,7 +237,10 @@ html, body {
     align-items: center;
     gap: 12px;
 
-    img { height: 36px; }
+    img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+    }
 
     span {
       font-size: 0.8rem;
@@ -251,17 +258,23 @@ html, body {
       margin-right: 12px;
       transition: background 0.2s;
 
+      // Iconos dentro del slot MDC
+      .mat-mdc-list-item-start,
+      .mdc-list-item__start {
+        color: rgba(255,255,255,0.7);
+      }
+
       &:hover {
         background: rgba(255,255,255,0.1) !important;
         color: white !important;
+        .mat-mdc-list-item-start, .mdc-list-item__start { color: white; }
       }
 
       &.active {
         background: rgba(86, 208, 215, 0.2) !important;
         color: #56D0D7 !important;
+        .mat-mdc-list-item-start, .mdc-list-item__start { color: #56D0D7; }
       }
-
-      mat-icon { color: inherit; margin-right: 12px; }
     }
   }
 
@@ -271,12 +284,16 @@ html, body {
     margin-right: 12px;
     cursor: pointer;
 
+    .mat-mdc-list-item-start,
+    .mdc-list-item__start {
+      color: rgba(255,255,255,0.7);
+    }
+
     &:hover {
       background: rgba(255,100,100,0.2) !important;
       color: #ff8a80 !important;
+      .mat-mdc-list-item-start, .mdc-list-item__start { color: #ff8a80; }
     }
-
-    mat-icon { color: inherit; margin-right: 12px; }
   }
 }
 
@@ -295,7 +312,7 @@ html, body {
 .admin-content {
   background: #f0f6fa;
   padding: 24px;
-  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
 }
 
 // ── Tablas admin ──────────────────────────────────────────────────────────────

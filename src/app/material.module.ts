@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRippleModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const modules = [
   MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule,
@@ -26,7 +28,7 @@ const modules = [
   MatSelectModule, MatTableModule, MatProgressSpinnerModule,
   MatSnackBarModule, MatTooltipModule, MatMenuModule, MatDividerModule,
   MatChipsModule, MatDialogModule, MatProgressBarModule, MatBadgeModule,
-  MatRippleModule
+  MatRippleModule, MatButtonToggleModule, MatSlideToggleModule
 ];
 
 @NgModule({
