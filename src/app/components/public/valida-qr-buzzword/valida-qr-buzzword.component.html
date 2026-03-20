@@ -1,105 +1,68 @@
-<div class="bg-vcard">
-  <!-- loader when vcard not  -->
-  <div *ngIf="!this.datosVCard" class="container section center-align">
-    <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue-only">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div>
-        <div class="gap-patch">
-          <div class="circle"></div>
-        </div>
-        <div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
+<div class="vcard-bg">
+
+  <!-- Loading -->
+  <div *ngIf="cargando" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    <mat-spinner diameter="56"></mat-spinner>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !cargando" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    <div style="text-align:center; color:white;">
+      <mat-icon style="font-size:56px; width:56px; height:56px; opacity:0.5;">broken_image</mat-icon>
+      <p style="margin-top:12px; opacity:0.7;">Tarjeta no encontrada</p>
     </div>
   </div>
-  <div *ngIf="this.datosVCard" class="container section">
 
+  <!-- VCard -->
+  <ng-container *ngIf="vcard && !cargando">
 
-    <div class="row">
+    <!-- Logo Grupo CSI -->
+    <div class="vcard-topbar">
+      <img src="assets/images/logos/grupocsi.png" alt="Grupo CSI">
+    </div>
 
-      <!-- foto -->
-      <div class="col s12 m4 m-2 center-align">
-        <img src="{{datosVCard.foto}}" class="responsive-img profilePic">
-      </div>
-
-      <!-- datos -->
-      <div class="col s12 m6 m-2">
-        <div class="section blue-grey-text text-lighten-5">
-
-
-          <!-- Nombre, puesto y empresa -->
-          <div class="row">
-            <div class="col s12 center-align">
-              <h5 id="nombreCompleto">
-                {{datosVCard.nombres}} {{datosVCard.primerApellido}} {{datosVCard.segundoApellido}}
-              </h5>
-            </div>
-          </div>
-
-          <!-- puesto -->
-          <div class="row mt-1">
-            <div class="col s12 center-align">
-              <span class="puesto">
-                {{datosVCard.puesto | uppercase}}
-              </span>
-            </div>
-          </div>
-
-          <!-- empresa -->
-          <div class="row mt-1">
-            <div class="col s12 center-align">
-              <span class="empresa">
-                <a class="btn text blue-grey-text text-lighten-5" href="https://grupocsi.com">{{datosVCard.empresa |
-                  uppercase}}</a>
-              </span>
-            </div>
-          </div>
-
-          <!-- teléfono -->
-          <div class="row mt-1">
-            <div class="col s12 center-align">
-              <span class="telefono">
-                <a class="btn text icon-left blue-grey-text text-lighten-5" href="tel:{{datosVCard.telefonoMovil}}">
-                  <i class="material-icons">phone</i> {{datosVCard.telefonoMovil}}
-                </a>
-              </span>
-            </div>
-          </div>
-
-          <!-- correo -->
-          <div class="row">
-            <div class="col s12 center-align">
-              <span class="correo">
-                <a class="btn text icon-left blue-grey-text text-lighten-5" href="mailto:{{datosVCard.email}}">
-                  <i class="material-icons">email</i> {{datosVCard.email}}
-                </a>
-              </span>
-            </div>
-          </div>
-
-          <!-- buttons -->
-          <div class="row">
-
-            <div class="col s12 center-align">
-              <!-- Linkedin -->
-              <span class="linkedin">
-                <a class="btn-large text blue-grey-text text-lighten-5" href="{{datosVCard.LinkedInURL}}">
-                  <i class="fab fa-linkedin"></i>
-                </a>
-              </span>
-              <!-- vcard -->
-              <span class="vcard" *ngIf="datosVCard.vcf">
-                <a class="btn-large text blue-grey-text text-lighten-5" (click)="downloadVCard()">
-                  <i class="fas fa-address-card"></i>
-                </a>
-              </span>
-            </div>
-
-          </div>
-
-        </div>
+    <!-- Foto -->
+    <div class="vcard-photo-wrapper">
+      <img *ngIf="vcard.foto" [src]="vcard.foto" class="vcard-avatar" alt="{{ vcard.nombres }}">
+      <div *ngIf="!vcard.foto" class="vcard-avatar-placeholder">
+        <mat-icon style="font-size:72px; width:72px; height:72px; color:rgba(255,255,255,0.5);">person</mat-icon>
       </div>
     </div>
+
+    <!-- Nombre, puesto y empresa -->
+    <div class="vcard-info">
+      <h2 class="vcard-name">{{ vcard.nombres }} {{ vcard.primerApellido }} {{ vcard.segundoApellido }}</h2>
+      <p class="vcard-puesto">{{ vcard.puesto }}</p>
+      <p class="vcard-empresa">{{ vcard.empresa }}</p>
+    </div>
+
+    <!-- Datos de contacto -->
+    <div class="vcard-body">
+
+      <a *ngIf="vcard.telefonoMovil" [href]="'tel:' + vcard.telefonoMovil" class="vcard-contact-item">
+        <mat-icon class="vcard-contact-icon">phone</mat-icon>
+        <span>{{ vcard.telefonoMovil }}</span>
+      </a>
+
+      <a *ngIf="vcard.email" [href]="'mailto:' + vcard.email" class="vcard-contact-item">
+        <mat-icon class="vcard-contact-icon">email</mat-icon>
+        <span>{{ vcard.email }}</span>
+      </a>
+
+      <a *ngIf="vcard.LinkedInURL" [href]="vcard.LinkedInURL" target="_blank" rel="noopener" class="vcard-contact-item">
+        <i class="fab fa-linkedin vcard-brand-icon"></i>
+        <span>LinkedIn</span>
+      </a>
+
+    </div>
+
+    <!-- Acciones: íconos -->
+    <div class="vcard-actions">
+      <button *ngIf="vcard.vcf" class="vcard-action-btn" (click)="downloadVCard()" matTooltip="Guardar contacto">
+        <mat-icon>contact_page</mat-icon>
+      </button>
+    </div>
+
+  </ng-container>
+
+</div>

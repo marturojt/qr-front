@@ -1,12 +1,12 @@
-﻿import { Role } from './role';
+import { Role } from './role';
 
 export class Account {
-    id: string;
-    title: string;
-    firstName: string;
-    lastName: string;
+    id: number;
+    nombres: string;
+    primerApellido: string;
+    segundoApellido?: string;
     email: string;
     role: Role;
+    isVerified?: boolean;
     jwtToken?: string;
-    isDeleting?: boolean;
 }

@@ -1,0 +1,83 @@
+<mat-card style="max-width:600px;">
+  <mat-card-header>
+    <mat-card-title>{{ esEdicion ? 'Editar usuario' : 'Nuevo usuario' }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" style="padding-top:8px;">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 16px;">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombres</mat-label>
+          <input matInput formControlName="nombres">
+          <mat-error *ngIf="f['nombres'].hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Primer apellido</mat-label>
+          <input matInput formControlName="primerApellido">
+          <mat-error *ngIf="f['primerApellido'].hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Segundo apellido</mat-label>
+        <input matInput formControlName="segundoApellido">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="f['email'].hasError('required')">Requerido</mat-error>
+        <mat-error *ngIf="f['email'].hasError('email')">Email inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let r of roles" [value]="r">{{ r }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-divider style="margin:8px 0 16px;"></mat-divider>
+      <p style="font-size:0.8rem; color:#90a4ae; margin:0 0 8px;">
+        {{ esEdicion ? 'Dejar en blanco para no cambiar la contraseña' : 'Contraseña de acceso inicial' }}
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 16px;">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ esEdicion ? 'Nueva contraseña' : 'Contraseña' }}</mat-label>
+          <input matInput [type]="ocultarPwd ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix type="button" (click)="ocultarPwd = !ocultarPwd">
+            <mat-icon>{{ ocultarPwd ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="f['password'].hasError('required')">Requerido</mat-error>
+          <mat-error *ngIf="f['password'].hasError('minlength')">Mínimo 6 caracteres</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input matInput [type]="ocultarConfirm ? 'password' : 'text'" formControlName="confirmPassword">
+          <button mat-icon-button matSuffix type="button" (click)="ocultarConfirm = !ocultarConfirm">
+            <mat-icon>{{ ocultarConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.hasError('noMatch')">Las contraseñas no coinciden</mat-error>
+        </mat-form-field>
+
+      </div>
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end" style="padding:0 16px 16px;">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="guardar()" [disabled]="guardando">
+      <mat-icon>save</mat-icon>
+      {{ guardando ? 'Guardando...' : (esEdicion ? 'Guardar cambios' : 'Crear usuario') }}
+    </button>
+  </mat-card-actions>
+</mat-card>

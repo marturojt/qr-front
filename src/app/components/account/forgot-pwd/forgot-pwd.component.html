@@ -1,35 +1,40 @@
-<div class="container">
-  <div class="row section">
-    <div class="col s12 center-align">
-      <h3 class="header">Restablecer contraseña</h3>
-    </div>
+<div class="login-bg">
+  <div class="login-card-wrapper">
+    <mat-card class="login-card">
+
+      <mat-card-header>
+        <mat-card-title>Restablecer contraseña</mat-card-title>
+        <mat-card-subtitle>Ingresa tu email y te enviaremos instrucciones.</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div *ngIf="enviado" style="padding:16px 0; text-align:center;">
+          <mat-icon style="font-size:48px; width:48px; height:48px; color:#43a047;">mark_email_read</mat-icon>
+          <p style="margin-top:8px; color:#546e7a;">Revisa tu bandeja de entrada para continuar.</p>
+          <a routerLink="../login" mat-button color="primary">Volver al login</a>
+        </div>
+
+        <form *ngIf="!enviado" [formGroup]="form" (ngSubmit)="onSubmit()" style="padding-top:8px;">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="f['email'].hasError('required')">Requerido</mat-error>
+            <mat-error *ngIf="f['email'].hasError('email')">Email inválido</mat-error>
+          </mat-form-field>
+
+          <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+            <a routerLink="../login" mat-button>Cancelar</a>
+            <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+              {{ loading ? 'Enviando...' : 'Enviar' }}
+            </button>
+          </div>
+
+        </form>
+      </mat-card-content>
+
+    </mat-card>
   </div>
-</div>
-
-<div class="divider"></div>
-
-<div class="container section mt-4">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="row" style="gap: 1em;">
-
-      <!-- Recovery mail -->
-      <div class="col s12 m6 offset-m3 input-field">
-        <input type="email" formControlName="email" id="email" name="email" placeholder=" " maxlength="100"
-          class="validate" required>
-        <label for="email">Email</label>
-      </div>
-
-    </div>
-
-    <div class="section"></div>
-
-    <div class="row">
-
-      <div class="col s12 center-align">
-        <a routerLink="../login" class="btn text mr-4">Cancelar</a>
-        <button [disabled]="!this.form.valid || this.loading" class="btn qrsite-contrast-background">Enviar</button>
-      </div>
-
-    </div>
-  </form>
 </div>

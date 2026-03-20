@@ -1,96 +1,62 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VcardData } from '@app/_models';
-import { AlertService, CriptoServiceService } from '@app/_services';
-import { QrBuzzService } from '@app/_services/qr-buzz/qr-buzz.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Vcard } from '@app/_models';
+import { CriptoServiceService, VcardService } from '@app/_services';
 import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-valida-qr-buzzword',
   templateUrl: './valida-qr-buzzword.component.html',
-  styleUrl: './valida-qr-buzzword.component.scss'
+  styleUrls: ['./valida-qr-buzzword.component.scss']
 })
 export class ValidaQrBuzzwordComponent implements OnInit {
 
-  // Get parameter from URL
   @Input() id: string = '';
 
-  // Variables cifrado
-  // idCifrado: string;
-  idDescifrado: string;
-  datosVCard: VcardData;
+  vcard: Vcard;
+  cargando = true;
+  error = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private alertService: AlertService,
+    private vcardService: VcardService,
     private criptoService: CriptoServiceService,
-    private qrBuzzService: QrBuzzService
-  ) {
-
-  }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-
-    this.idDescifrado = this.criptoService.decrypt(this.id);
-    this.getVCardData(+this.idDescifrado);
+    const contactId = +this.criptoService.decrypt(this.id);
+    this.vcardService.getById(contactId).pipe(first()).subscribe({
+      next: (data) => {
+        this.vcard = data;
+        this.cargando = false;
+        if (this.vcard.vcf) {
+          setTimeout(() => this.downloadVCard(), 800);
+        }
+      },
+      error: () => {
+        this.error = true;
+        this.cargando = false;
+        this.snackBar.open('No se encontró la tarjeta de contacto', 'Cerrar', { duration: 4000 });
+      }
+    });
   }
 
-  //#region funciones del front
-
   downloadVCard() {
-    // Extract only the base64 part
-    const base64Data = this.datosVCard.vcf.split(',')[1]; // Remove 'data:@file/x-vcard;base64,'
-
-    if (!base64Data) {
-      console.error("Invalid base64 data");
-      return;
-    }
+    const base64Data = this.vcard.vcf.split(',')[1];
+    if (!base64Data) return;
 
     const byteCharacters = atob(base64Data);
-    const byteNumbers = new Array(byteCharacters.length);
-
+    const byteArray = new Uint8Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
+      byteArray[i] = byteCharacters.charCodeAt(i);
     }
 
-    const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: 'text/vcard' });
-
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'contact.vcf';
+    link.download = `${this.vcard.nombres}-${this.vcard.primerApellido}.vcf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
-
-  //#endregion
-
-
-  //#region funciones privadas conexión a db
-
-  // get vcard data
-  private getVCardData(id) {
-    console.log('id', id)
-    this.qrBuzzService.getVCardData(id)
-      .pipe(first())
-      .subscribe({
-        next: (data) => {
-          this.datosVCard = data;
-          this.alertService.toastWin('Datos obtenidos correctamente');
-          console.log(this.datosVCard);
-
-          // download vcard if exists
-          if (this.datosVCard.vcf) this.downloadVCard();
-        },
-        error: error => {
-          this.alertService.toastError(error);
-        }
-      })
-  }
-
-
-  //#endregion
-
 }

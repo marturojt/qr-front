@@ -1,26 +1,23 @@
-<div class="container">
-  <div class="row section">
-    <div class="col s12 center-align">
-      <h3 class="header">Verificación de cuenta</h3>
-    </div>
-  </div>
-</div>
+<div class="login-bg">
+  <div class="login-card-wrapper">
+    <mat-card class="login-card" style="text-align:center;">
 
-<div class="divider"></div>
+      <mat-card-content style="padding:32px 16px;">
 
-<div *ngIf="emailStatus == EmailStatus.Verifying" class="container section">
-  Verifying...
-</div>
+        <div *ngIf="emailStatus == EmailStatus.Verifying">
+          <mat-spinner diameter="48" style="margin:auto;"></mat-spinner>
+          <p style="margin-top:16px; color:#90a4ae;">Verificando tu cuenta...</p>
+        </div>
 
-<div *ngIf="emailStatus == EmailStatus.Failed" class="container section">
-  <div class="row">
-    <div class="col s12 m6 offset-m3">
-      <div class="card-panel">
-        <span>
-          Verification failed, you can also verify your account using the <a routerLink="forgot-password">forgot
-            password</a> page.
-        </span>
-      </div>
-    </div>
+        <div *ngIf="emailStatus == EmailStatus.Failed">
+          <mat-icon style="font-size:56px; width:56px; height:56px; color:#ef9a9a;">cancel</mat-icon>
+          <h3 style="color:#546e7a;">Verificación fallida</h3>
+          <p style="color:#90a4ae;">El enlace no es válido o ha expirado. Puedes solicitar uno nuevo.</p>
+          <a routerLink="../forgot-password" mat-raised-button color="primary">Solicitar nuevo enlace</a>
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
   </div>
 </div>

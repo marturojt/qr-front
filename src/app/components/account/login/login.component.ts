@@ -2,65 +2,51 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AccountService, AlertService } from '@app/_services';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountService } from '@app/_services';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-
   form: FormGroup;
   loading = false;
-  submitted = false;
+  ocultarPwd = true;
+  errorMsg = '';
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-
-    // Login form
-    this.form = this.formBuilder.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-
   }
 
-  // Access to form controls
   get f() { return this.form.controls; }
 
-  // Submit
   onSubmit() {
-    this.submitted = true;
-
-    // Stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
-
+    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this.loading = true;
+    this.errorMsg = '';
     this.accountService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
-          // Get return url from query parameters or default to home page
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
           this.router.navigateByUrl(returnUrl);
         },
-        error: error => {
-          this.alertService.toastError(error);
+        error: err => {
+          this.errorMsg = err || 'Usuario o contraseña incorrectos';
           this.loading = false;
         }
-      })
+      });
   }
-
-
 }

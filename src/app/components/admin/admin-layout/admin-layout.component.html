@@ -1,0 +1,41 @@
+<mat-sidenav-container class="admin-sidenav-container">
+
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened class="admin-sidenav">
+
+    <div class="sidenav-logo">
+      <img src="assets/images/logos/grupocsi.png" alt="Grupo CSI">
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item
+        *ngFor="let item of navItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.route === '/admin' }">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+
+      <mat-divider style="border-color:rgba(255,255,255,0.15); margin:8px 0;"></mat-divider>
+
+      <mat-list-item (click)="logout()" class="logout-item">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListItemTitle>Cerrar sesión</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <!-- Contenido -->
+  <mat-sidenav-content>
+    <mat-toolbar class="admin-toolbar" style="position:sticky; top:0; z-index:100;">
+      <span class="page-title">{{ pageTitle }}</span>
+    </mat-toolbar>
+
+    <div class="admin-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

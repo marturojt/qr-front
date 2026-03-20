@@ -51,10 +51,6 @@ export class AccountService {
             }));
     }
 
-    register(account: Account) {
-        return this.http.post(`${baseUrl}/register`, account);
-    }
-
     verifyEmail(token: string) {
         return this.http.post(`${baseUrl}/verify-email`, { token });
     }
@@ -75,7 +71,7 @@ export class AccountService {
         return this.http.get<Account[]>(baseUrl);
     }
 
-    getById(id: string) {
+    getById(id: number) {
         return this.http.get<Account>(`${baseUrl}/${id}`);
     }
     
@@ -96,11 +92,10 @@ export class AccountService {
             }));
     }
     
-    delete(id: string) {
+    delete(id: number) {
         return this.http.delete(`${baseUrl}/${id}`)
             .pipe(finalize(() => {
-                // auto logout if the logged in account was deleted
-                if (id === this.accountValue.id)
+                if (id === +this.accountValue.id)
                     this.logout();
             }));
     }

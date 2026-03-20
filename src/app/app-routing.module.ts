@@ -2,34 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
-import { HomeComponent } from './components/home/home.component';
 
 const accountModule = () => import('./components/account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./components/admin/admin.module').then(x => x.AdminModule);
-const profileModule = () => import('./components/profile/profile.module').then(x => x.ProfileModule);
-const qrBuzzwordModule = () => import('./components/qr-buzzword/qr-buzzword.module').then(x => x.QrBuzzwordModule);
-
-// loadChildrenCallback
 const publicSiteModule = () => import('./components/public/public-site.module').then(x => x.PublicSiteModule);
 
 const routes: Routes = [
-    { path: '', loadChildren: publicSiteModule },
-
-    // Cosas que estan desde el boilerplate
-    // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'account', loadChildren: accountModule },
-    { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
-    { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-
-    // Cosas para el qr de buzzword
-    { path: 'qrBuzzword', loadChildren: qrBuzzwordModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-
-    // otherwise redirect to home
-    { path: '**', redirectTo: 'account/login' }
+  { path: '', loadChildren: publicSiteModule },
+  { path: 'account', loadChildren: accountModule },
+  { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: '**', redirectTo: 'account/login' }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {})],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {})],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

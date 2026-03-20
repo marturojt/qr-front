@@ -1,184 +1,378 @@
-/* === Import materialize css and fonts === */
-@import "./materialize-imports.scss";
-@import "./colors.scss";
+@use '@angular/material' as mat;
 
+// ── Paleta de marca Grupo CSI ────────────────────────────────────────────────
+// Fuente: Brand Book 2022 — #006192 / #00A6E2 / #56D0D7
+$csi-palette: (
+  50:   #e0f3fc,
+  100:  #b3e2f7,
+  200:  #80d0f2,
+  300:  #4dbdec,
+  400:  #26aee8,
+  500:  #00A6E2,   // azul principal
+  600:  #009ed5,
+  700:  #0083b8,
+  800:  #006192,   // azul oscuro
+  900:  #004a70,
+  A100: #cce8ff,
+  A200: #99d1ff,
+  A400: #56D0D7,   // teal acento
+  A700: #3dc4cc,
+  contrast: (
+    50:   rgba(black, 0.87),
+    100:  rgba(black, 0.87),
+    200:  rgba(black, 0.87),
+    300:  rgba(black, 0.87),
+    400:  rgba(black, 0.87),
+    500:  white,
+    600:  white,
+    700:  white,
+    800:  white,
+    900:  white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
 
-/* === Font Awesome === */
+$csi-primary: mat.define-palette($csi-palette, 500, 300, 800);
+$csi-accent:  mat.define-palette($csi-palette, A400, A200, A700);
+$csi-warn:    mat.define-palette(mat.$red-palette);
+
+$csi-theme: mat.define-light-theme((
+  color: (primary: $csi-primary, accent: $csi-accent, warn: $csi-warn),
+  typography: mat.define-typography-config($font-family: 'Roboto, sans-serif'),
+  density: 0
+));
+
+@include mat.all-component-themes($csi-theme);
+
+// ── Font Awesome (para íconos de marca: LinkedIn, etc.) ──────────────────────
 @import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "@fortawesome/fontawesome-free/scss/solid.scss";
-@import "@fortawesome/fontawesome-free/scss/regular.scss";
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
 
-/* === theme dynamic classes === */
-
-// Background color
-.theme-background {
-  background-color: var(--md-sys-color-surface) !important;
+// ── Reset y base ─────────────────────────────────────────────────────────────
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: #f0f6fa;
 }
 
-// Backgroud color variant
-.theme-background-variant {
-  background-color: var(--md-sys-color-surface-variant) !important;
+// ── Utilidades globales ───────────────────────────────────────────────────────
+.full-width { width: 100%; }
+.spacer { flex: 1 1 auto; }
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
 
-// Main text color
-.theme-main-text {
-  color: var(--md-sys-color-on-surface) !important;
-}
-
-// Main text color variant
-.theme-main-text-variant {
-  color: var(--md-sys-color-on-surface-variant) !important;
-}
-
-// Primary color
-.theme-color-primary {
-  color: var(--md-sys-color-primary) !important;
-}
-
-// Text on primary color
-.theme-color-on-primary-text {
-  color: var(--md-sys-color-on-primary) !important;
-}
-
-
-// Image filter
-.img-filter {
-  filter: var(--img-filter);
-}
-
-// Error label
-.supporting-error {
-  color: var(--md-sys-color-error) !important;
-}
-
-// Select background color
-select.browser-default {
-  background-color: var(--md-sys-color-surface) !important;
-  color: var(--md-sys-color-on-surface) !important;
-}
-
-
-
-// === Global HTML styles ===
-
-body {
-  @extend .theme-background;
-  @extend .theme-main-text;
-
-  // Distribución del home
+// ── Vcard pública ─────────────────────────────────────────────────────────────
+.vcard-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #002642 0%, #003d66 30%, #005a8e 65%, #00A6E2 100%);
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-main {
-  flex: 1 0 auto;
+// Logo superior
+.vcard-topbar {
+  display: flex;
+  justify-content: center;
+
+  img { height: 36px; }
 }
 
-blockquote {
-  border-left: 5px solid var(--md-sys-color-primary);
-  text-align: justify;
+// Foto con esquinas redondeadas
+.vcard-photo-wrapper {
+  display: flex;
+  justify-content: center;
+
+  .vcard-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 24px;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.85);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    display: block;
+  }
+
+  .vcard-avatar-placeholder {
+    width: 160px;
+    height: 160px;
+    border-radius: 24px;
+    border: 4px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.1);
+  }
 }
 
-.page-footer {
-  padding-top: 1px;
+// Nombre, puesto y empresa
+.vcard-info {
+  text-align: center;
+  color: white;
+
+  .vcard-name {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 4px;
+    color: white;
+  }
+
+  .vcard-puesto {
+    font-size: 0.78rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin: 0 0 4px;
+  }
+
+  .vcard-empresa {
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.95;
+    margin: 0;
+  }
 }
 
-// === Form Styles ===
+// Datos de contacto
+.vcard-body {
+  padding: 0;
+  width: 100%;
+  max-width: 360px;
 
-/* Dirty and invalid input */
-input.ng-dirty.ng-invalid {
-  color: red
+  .vcard-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 8px 0;
+    text-decoration: none;
+    color: rgba(255,255,255,0.9);
+    transition: color 0.2s;
+    font-size: 0.95rem;
+
+    &:hover { color: #56D0D7; }
+
+    .vcard-contact-icon {
+      color: rgba(255,255,255,0.7);
+      font-size: 20px;
+      width: 20px;
+    }
+
+    .vcard-brand-icon {
+      font-size: 20px;
+      color: rgba(255,255,255,0.7);
+      width: 20px;
+      text-align: center;
+    }
+
+    span { word-break: break-all; }
+  }
 }
 
-/* Invalid input */
-input.ng-invalid:not(form) {
-  border-bottom: 1px solid #a94442;
-  /* red */
-  box-shadow: 0 1px 0 0 #a94442;
-  /* black */
+// Botón guardar contacto (ícono circular)
+.vcard-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+
+  .vcard-action-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    color: white;
+
+    &:hover {
+      background: rgba(255,255,255,0.28);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    mat-icon { font-size: 24px; line-height: 24px; }
+  }
 }
 
-/* Helper errors */
-.helper-errors {
-  color: red;
+// ── Admin layout ──────────────────────────────────────────────────────────────
+.admin-sidenav-container {
+  height: 100vh;
+  // Evita scroll doble en el body
+  position: fixed !important;
+  top: 0; left: 0; right: 0; bottom: 0;
 }
 
-/* label underline focus color */
-.input-field input[type=text]:focus {
-  border-bottom: 1px solid var(--md-sys-color-primary);
-  box-shadow: 0 1px 0 0 var(--md-sys-color-primary);
+.admin-sidenav {
+  width: 220px;
+  background: #004a70;
+  color: white;
+  // Flex para empujar el logout al fondo
+  display: flex !important;
+  flex-direction: column;
+
+  .sidenav-logo {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    img { height: 36px; }
+
+    span {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      line-height: 1.3;
+    }
+  }
+
+  .mat-mdc-nav-list {
+    padding-top: 8px;
+
+    .mat-mdc-list-item {
+      color: rgba(255,255,255,0.8) !important;
+      border-radius: 0 24px 24px 0;
+      margin-right: 12px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba(255,255,255,0.1) !important;
+        color: white !important;
+      }
+
+      &.active {
+        background: rgba(86, 208, 215, 0.2) !important;
+        color: #56D0D7 !important;
+      }
+
+      mat-icon { color: inherit; margin-right: 12px; }
+    }
+  }
+
+  .logout-item {
+    color: rgba(255,255,255,0.7) !important;
+    border-radius: 0 24px 24px 0;
+    margin-right: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255,100,100,0.2) !important;
+      color: #ff8a80 !important;
+    }
+
+    mat-icon { color: inherit; margin-right: 12px; }
+  }
 }
 
-.input-field input[type=email]:focus {
-  border-bottom: 1px solid var(--md-sys-color-primary);
-  box-shadow: 0 1px 0 0 var(--md-sys-color-primary);
+.admin-toolbar {
+  background: white !important;
+  border-bottom: 1px solid #d4e8f5;
+  color: #004a70 !important;
+  box-shadow: 0 1px 4px rgba(0, 80, 130, 0.1) !important;
+
+  .page-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
 }
 
-.input-field input[type=password]:focus {
-  border-bottom: 1px solid var(--md-sys-color-primary);
-  box-shadow: 0 1px 0 0 var(--md-sys-color-primary);
+.admin-content {
+  background: #f0f6fa;
+  padding: 24px;
+  min-height: calc(100vh - 64px);
 }
 
-.input-field input[type=text] {
-  background-color: var(--md-sys-color-surface);
+// ── Tablas admin ──────────────────────────────────────────────────────────────
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 80, 130, 0.1);
+  overflow: hidden;
 }
 
-.input-field input[type=email] {
-  background-color: var(--md-sys-color-surface);
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e8f2f9;
+
+  h2 { margin: 0; font-size: 1.1rem; font-weight: 500; color: #004a70; }
 }
 
-.input-field input[type=password] {
-  background-color: var(--md-sys-color-surface);
+.mat-mdc-table {
+  width: 100%;
+  background: white;
+
+  th.mat-mdc-header-cell {
+    font-weight: 600;
+    color: #006192;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: #f0f6fa;
+    border-bottom: 2px solid #d4e8f5;
+    padding: 12px 16px;
+  }
+
+  td.mat-mdc-cell {
+    padding: 14px 16px;
+    color: #004a70;
+    border-bottom: 1px solid #f0f6fa;
+  }
+
+  tr.mat-mdc-row:hover td { background: #e8f4fb; }
+
+  .action-cell {
+    white-space: nowrap;
+    text-align: right;
+  }
 }
 
-input[type=checkbox]:checked+.lever {
-  background-color: var(--md-sys-color-primary) !important;
-  border-color: var(--md-sys-color-primary) !important;
+// ── Login ─────────────────────────────────────────────────────────────────────
+// Fondo: gradiente de marca igual que la vcard pública
+.login-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #004a70 0%, #006192 45%, #00A6E2 80%, #56D0D7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
-/* label color */
-.input-field label {
-  @extend .theme-main-text;
+.login-card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-// === Other things ===
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 48px rgba(0, 60, 100, 0.35) !important;
 
-sup {
-  color: red;
+  mat-card-content {
+    padding: 8px 32px 8px !important;
+  }
+
+  mat-card-actions {
+    padding: 8px 32px 24px !important;
+  }
 }
-
-.btn.disabled,
-.btn:disabled {
-  @extend .theme-main-text;
-}
-
-
-// === DataTables ===
-
-.dataTables_info {
-  @extend .theme-main-text;
-}
-
-.dataTables_filter,
-label,
-input {
-  @extend .theme-main-text;
-}
-
-a.paginate_button,
-a.paginate_button.current,
-a.paginate_button.next,
-a.paginate_button.next.disabled,
-a.paginate_button.previous,
-a.paginate_button.previous.disabled {
-  background-color: var(--md-sys-color-surface-variant, 20%) !important;
-}
-
-// a.paginate_button:hover,
-// a.paginate_button.previous:hover,
-// a.paginate_button.current:hover,
-// a.paginate_button.next:hover {
-//     background-color: lighten(red, 10%) !important;
-// }

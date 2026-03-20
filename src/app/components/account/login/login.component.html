@@ -1,68 +1,49 @@
-<div class="fondo-degradado">
+<div class="login-bg">
+  <div class="login-card-wrapper">
+    <mat-card class="login-card">
 
-  <div class="section"></div>
-  <div class="section"></div>
-
-  <div class="row container login">
-    <div class="col s12 m6 offset-m3">
-      <div class="card theme-background">
-
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="card-content">
-            <div class="center-align mb-4">
-              <img src="assets/images/logos/grupocsi.png" class="logo-login">
-            </div>
-            <!-- <span class="card-title center-align">Inicio de sesión</span> -->
-
-            <!-- Formulario de inicio de sesion -->
-            <div class="row" style="gap: 1em;">
-
-              <!-- Username -->
-              <div class="col s12 input-field">
-                <i class="material-icons prefix theme-main-text">account_circle</i>
-                <input type="email" autocomplete="username" id="nombreUsuario" name="nombreUsuario" placeholder=" "
-                  class="validate" formControlName="email" maxlength="100" required>
-                <label for="nombreUsuario">Email</label>
-              </div>
-              <!-- Password -->
-              <div class="col s12 input-field">
-                <i class="material-icons prefix theme-main-text">vpn_key</i>
-                <input type="password" autocomplete="current-password" name="passwordUsuario" id="passwordUsuario"
-                  placeholder=" " formControlName="password" maxlength="30" required>
-                <label for="passwordUsuario">Password</label>
-              </div>
-
-            </div>
-
-            <div class="section"></div>
-
-            <!-- Botones del formulario -->
-            <div class="row section">
-
-              <div class="col s12">
-                <div class="center-align">
-                  <a tabindex="0" class="btn text mr-4 theme-main-text" routerLink="../register">Registrarse</a>
-                  <button [disabled]="!this.form.valid || this.loading"
-                    class="btn theme-color-primary theme-color-on-primary-text">Entrar</button>
-                </div>
-              </div>
-
-              <div class="col s12">
-                <div class="center-align">
-                  <a routerLink="../forgot-password" class="btn text mt-4">¿Olvidó su
-                    contraseña?</a>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </form>
-
+      <div style="text-align:center; padding: 24px 0 8px;">
+        <img src="assets/images/logos/grupocsi.png" alt="Grupo CSI" style="max-height:60px;">
       </div>
-    </div>
+
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" style="padding-top:8px;">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" autocomplete="username">
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error *ngIf="f['email'].hasError('required')">Requerido</mat-error>
+            <mat-error *ngIf="f['email'].hasError('email')">Email inválido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="ocultarPwd ? 'password' : 'text'" formControlName="password" autocomplete="current-password">
+            <button mat-icon-button matSuffix type="button" (click)="ocultarPwd = !ocultarPwd">
+              <mat-icon>{{ ocultarPwd ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="f['password'].hasError('required')">Requerido</mat-error>
+          </mat-form-field>
+
+          <div *ngIf="errorMsg" style="color:#f44336; font-size:0.85rem; text-align:center; padding:4px 0 8px; display:flex; align-items:center; justify-content:center; gap:4px;">
+            <mat-icon style="font-size:16px; width:16px; height:16px; line-height:16px;">error_outline</mat-icon>
+            {{ errorMsg }}
+          </div>
+
+          <div style="margin-top:8px;">
+            <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loading">
+              {{ loading ? 'Ingresando...' : 'Iniciar sesión' }}
+            </button>
+          </div>
+
+          <div style="text-align:center; margin-top:16px;">
+            <a routerLink="../forgot-password" mat-button color="primary">¿Olvidó su contraseña?</a>
+          </div>
+
+        </form>
+      </mat-card-content>
+
+    </mat-card>
   </div>
-
-  <div class="section"></div>
-
 </div>

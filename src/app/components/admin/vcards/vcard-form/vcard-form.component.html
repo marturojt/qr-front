@@ -1,0 +1,122 @@
+<div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
+
+  <!-- Formulario -->
+  <mat-card style="flex:1; min-width:320px;">
+    <mat-card-header>
+      <mat-card-title>{{ esEdicion ? 'Editar vcard' : 'Nueva vcard' }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" style="padding-top:8px;">
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 16px;">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombres</mat-label>
+            <input matInput formControlName="nombres">
+            <mat-error *ngIf="f['nombres'].hasError('required')">Requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Primer apellido</mat-label>
+            <input matInput formControlName="primerApellido">
+            <mat-error *ngIf="f['primerApellido'].hasError('required')">Requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Segundo apellido</mat-label>
+            <input matInput formControlName="segundoApellido">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Puesto</mat-label>
+            <input matInput formControlName="puesto">
+          </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Empresa</mat-label>
+          <input matInput formControlName="empresa">
+        </mat-form-field>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 16px;">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="f['email'].hasError('required')">Requerido</mat-error>
+            <mat-error *ngIf="f['email'].hasError('email')">Email inválido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Teléfono móvil</mat-label>
+            <input matInput formControlName="telefonoMovil">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="f['telefonoMovil'].hasError('required')">Requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Teléfono oficina</mat-label>
+            <input matInput formControlName="telefonoOficina">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Dirección</mat-label>
+            <input matInput formControlName="Address">
+          </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>LinkedIn URL</mat-label>
+          <input matInput formControlName="LinkedInURL">
+          <mat-icon matSuffix>link</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Foto (URL o base64)</mat-label>
+          <textarea matInput formControlName="foto" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Archivo VCF (base64)</mat-label>
+          <textarea matInput formControlName="vcf" rows="3"></textarea>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end" style="padding:0 16px 16px;">
+      <button mat-button (click)="cancelar()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="guardar()" [disabled]="guardando">
+        <mat-icon>save</mat-icon>
+        {{ guardando ? 'Guardando...' : (esEdicion ? 'Guardar cambios' : 'Crear vcard') }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Panel QR -->
+  <mat-card style="width:280px; flex-shrink:0;" *ngIf="esEdicion">
+    <mat-card-header>
+      <mat-card-title>Código QR</mat-card-title>
+      <mat-card-subtitle>Para tarjeta de presentación</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="text-align:center; padding:16px;">
+      <img *ngIf="qrDataUrl" [src]="qrDataUrl" style="width:200px; height:200px; border-radius:8px;">
+      <div *ngIf="!qrDataUrl" style="height:200px; display:flex; align-items:center; justify-content:center; color:#90a4ae;">
+        <mat-spinner diameter="32"></mat-spinner>
+      </div>
+      <p style="font-size:0.7rem; color:#90a4ae; word-break:break-all; margin-top:12px;">{{ urlQr }}</p>
+    </mat-card-content>
+
+    <mat-card-actions style="justify-content:center; display:flex;">
+      <button mat-stroked-button color="primary" (click)="descargarQR()" [disabled]="!qrDataUrl">
+        <mat-icon>download</mat-icon> Descargar QR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

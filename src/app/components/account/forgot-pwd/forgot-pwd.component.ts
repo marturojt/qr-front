@@ -1,54 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, finalize } from 'rxjs/operators';
-
-import { AccountService, AlertService } from '@app/_services';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountService } from '@app/_services';
 
 @Component({
   selector: 'app-forgot-pwd',
-  templateUrl: './forgot-pwd.component.html',
-  styleUrls: ['./forgot-pwd.component.scss']
+  templateUrl: './forgot-pwd.component.html'
 })
 export class ForgotPwdComponent implements OnInit {
-  form: UntypedFormGroup;
+  form: FormGroup;
   loading = false;
-  submitted = false;
+  enviado = false;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private fb: FormBuilder,
     private accountService: AccountService,
-    private alertService: AlertService
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  // Get form controls
   get f() { return this.form.controls; }
 
   onSubmit() {
-    this.submitted = true;
-
-    // reset alerts on submit
-    // this.alertService.clear();
-
-    // stop here if form is invalid
-    if (this.form.invalid) {
-        return;
-    }
-
+    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this.loading = true;
-    // this.alertService.clear();
     this.accountService.forgotPassword(this.f.email.value)
-        .pipe(first())
-        .pipe(finalize(() => this.loading = false))
-        .subscribe({
-            next: () => this.alertService.toastWin('Please check your email for password reset instructions'),
-            error: error => this.alertService.toastError(error)
-        });
-}
-
+      .pipe(first(), finalize(() => this.loading = false))
+      .subscribe({
+        next: () => { this.enviado = true; },
+        error: err => this.snackBar.open(err, 'Cerrar', { duration: 4000 })
+      });
+  }
 }

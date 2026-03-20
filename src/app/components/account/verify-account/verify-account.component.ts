@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountService } from '@app/_services';
 
-import { AccountService, AlertService } from '@app/_services';
-
-enum EmailStatus {
-  Verifying,
-  Failed
-}
+enum EmailStatus { Verifying, Failed }
 
 @Component({
   selector: 'app-verify-account',
-  templateUrl: './verify-account.component.html',
-  styleUrls: ['./verify-account.component.scss']
+  templateUrl: './verify-account.component.html'
 })
 export class VerifyAccountComponent implements OnInit {
   EmailStatus = EmailStatus;
@@ -22,26 +18,21 @@ export class VerifyAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     const token = this.route.snapshot.queryParams['token'];
-
-    // remove token from url to prevent http referer leakage
     this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
 
     this.accountService.verifyEmail(token)
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.toastWin('Verification successful, you can now login');
+          this.snackBar.open('Email verificado. Ya puedes iniciar sesión.', '', { duration: 4000 });
           this.router.navigate(['../login'], { relativeTo: this.route });
         },
-        error: () => {
-          this.emailStatus = EmailStatus.Failed;
-        }
+        error: () => { this.emailStatus = EmailStatus.Failed; }
       });
   }
-
 }
